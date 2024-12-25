@@ -450,8 +450,6 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Example.aspx" />
-    <Content Include="Exc.aspx" />
     <Content Include="FabImage\Attendense.png" />
     <Content Include="FabImage\Expanse.png" />
     <Content Include="FabImage\MasterAdmin.png" />
@@ -675,20 +673,6 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Example.aspx.cs">
-      <DependentUpon>Example.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Example.aspx.designer.cs">
-      <DependentUpon>Example.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Exc.aspx.cs">
-      <DependentUpon>Exc.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Exc.aspx.designer.cs">
-      <DependentUpon>Exc.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Fab_Admin_Expanse.aspx.cs">
       <DependentUpon>Fab_Admin_Expanse.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
