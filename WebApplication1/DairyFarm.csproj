@@ -462,6 +462,7 @@
     <Content Include="Fab_Admin_Profit.aspx" />
     <Content Include="Fab_Admin_Transport.aspx" />
     <Content Include="Fab_Helper_Login.aspx" />
+    <Content Include="Fab_Helper_Registration.aspx" />
     <Content Include="Fa_Admin_Create_Salaryslip.aspx" />
     <Content Include="Fa_Admin_DatePE.aspx" />
     <Content Include="Fa_Admin_History.aspx" />
@@ -707,6 +708,13 @@
     </Compile>
     <Compile Include="Fab_Helper_Login.aspx.designer.cs">
       <DependentUpon>Fab_Helper_Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fab_Helper_Registration.aspx.cs">
+      <DependentUpon>Fab_Helper_Registration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fab_Helper_Registration.aspx.designer.cs">
+      <DependentUpon>Fab_Helper_Registration.aspx</DependentUpon>
     </Compile>
     <Compile Include="Fa_Admin_Create_Salaryslip.aspx.cs">
       <DependentUpon>Fa_Admin_Create_Salaryslip.aspx</DependentUpon>
