@@ -20,7 +20,7 @@ namespace WebApplication1
         protected void btnRegister_Click(object sender, EventArgs e)
         {
             con.Close();
-            SqlCommand cmdcheck = new SqlCommand("select * from Users where contact=@contact", con);
+            SqlCommand cmdcheck = new SqlCommand("select * from Fab_Users where User_contact=@contact", con);
             cmdcheck.Parameters.AddWithValue("@contact", UserContact.Text);
             con.Open();
             SqlDataReader reader = cmdcheck.ExecuteReader();
@@ -33,7 +33,7 @@ namespace WebApplication1
             {
                 con.Close();
 
-                SqlCommand cmd = new SqlCommand("insert into Fab_Users values (@name,@contact,@pass)", con);
+                SqlCommand cmd = new SqlCommand("insert into Fab_Users (User_name,User_contact,User_pass) values (@name,@contact,@pass)", con);
                 cmd.Parameters.AddWithValue("@name", txtname.Text);
                 cmd.Parameters.AddWithValue("@contact", UserContact.Text);
                 cmd.Parameters.AddWithValue("@pass", UserPassword.Text);

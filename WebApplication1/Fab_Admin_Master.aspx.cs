@@ -57,7 +57,7 @@ namespace WebApplication1
         protected DataSet gvuser()
         {
             con.Close();
-            SqlCommand sql = new SqlCommand(" SELECT FE.Exp_id,FE.date AS ExpenseDate,FE.User_advance,FE.User_id,FU.User_name FROM Fab_Expanse FE INNER JOIN     Fab_Users FU ON     FE.User_id = FU.User_id", con);
+            SqlCommand sql = new SqlCommand(" SELECT FE.Exp_id,FE.date AS ExpenseDate,FE.User_advance,FE.User_id,FU.User_name FROM Fab_Expanse FE INNER JOIN  Fab_Users FU ON FE.User_id = FU.User_id", con);
      
             con.Open();
             DataSet ds = new DataSet();
@@ -98,6 +98,7 @@ namespace WebApplication1
 
             AdvanceMoney.Text = "";
             BindHelperDropdown();
+            gridAdvance.DataSource = gvuser();
             gridAdvance.DataBind();
 
             this.ClientScript.RegisterStartupScript(this.GetType(), "SweetAlert", "swal('Record saved successfully','','success');", true);

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fa_Helper_Att.aspx.cs" Inherits="WebApplication1.OtherFeed" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Helper_Att.aspx.cs" Inherits="WebApplication1.Fab_Helper_Att" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -131,9 +131,9 @@
                     <div class="row justify-content-center align-items-center" style="min-height: 70vh;">
                         <div class="col-md-4 col-sm-8 col-10">
                             <div class="buttons-container">
-                                <asp:Button ID="btnFullDay" runat="server" Text="Full Day" CssClass="btn btn-full-day" />
-                                <asp:Button ID="btnHalfDay" runat="server" Text="Half Day" CssClass="btn btn-half-day" />
-                                <asp:Button ID="btnOffDay" runat="server" Text="Off Day" CssClass="btn btn-off-day" />
+                                <asp:Button ID="btnFullDay" OnClick="btnFullDay_Click" runat="server" Text="Full Day" CssClass="btn btn-full-day" />
+                                <asp:Button ID="btnHalfDay" OnClick="btnHalfDay_Click" runat="server" Text="Half Day" CssClass="btn btn-half-day" />
+                                <asp:Button ID="btnOffDay" OnClick="btnOffDay_Click" runat="server" Text="Off Day" CssClass="btn btn-off-day" />
                             </div>
                         </div>
                     </div>
@@ -146,5 +146,47 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const btnFullDay = document.getElementById('<%= btnFullDay.ClientID %>');
+    const btnHalfDay = document.getElementById('<%= btnHalfDay.ClientID %>');
+    const btnOffDay = document.getElementById('<%= btnOffDay.ClientID %>');
+
+    const today = new Date().toISOString().split('T')[0];
+    const userChoiceKey = "userChoice";
+
+    const savedData = JSON.parse(localStorage.getItem(userChoiceKey));
+
+    if (savedData && savedData.date === today) {
+        swal(`You have already selected: ${savedData.choice}`, '', 'warning');
+        disableButtons(); 
+    }
+
+    btnFullDay.addEventListener("click", () => handleButtonClick("Full Day"));
+    btnHalfDay.addEventListener("click", () => handleButtonClick("Half Day"));
+    btnOffDay.addEventListener("click", () => handleButtonClick("Off Day"));
+
+    function handleButtonClick(choice) {
+        if (savedData && savedData.date === today) {
+            return;
+        }
+
+        localStorage.setItem(userChoiceKey, JSON.stringify({ date: today, choice }));
+        swal(`You selected: ${choice}`, '', 'success').then(() => {
+            disableButtons(); 
+        });
+    }
+
+    function disableButtons() {
+        btnFullDay.disabled = true;
+        btnHalfDay.disabled = true;
+        btnOffDay.disabled = true;
+    }
+});
+    </script>
+
+
+
 </body>
 </html>

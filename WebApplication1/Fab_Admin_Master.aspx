@@ -178,9 +178,6 @@
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblname" Text='<%# Eval("User_name") %>'></asp:Label>
                                     </ItemTemplate>
-                                    <EditItemTemplate>
-                                        <asp:TextBox runat="server" ID="txtname" Text='<%# Eval("User_name") %>'></asp:TextBox>
-                                    </EditItemTemplate>
                                 </asp:TemplateField>
 
                                 <asp:TemplateField HeaderText="Advance Money:">
@@ -245,10 +242,6 @@
             </div>
         </div>
     </form>
-
-
-
-
 
     <script>
         function checkInput(input) {
