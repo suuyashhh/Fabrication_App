@@ -95,7 +95,8 @@
                                 <div class="row g-3">
                                     <div class="col-md-4">
                                         <strong>HELPER NAME:</strong><br />
-                                        <span>__________________</span><br />
+                                         <asp:DropDownList ID="ddlHelpername" runat="server" CssClass="form-control form-control-sm" DataTextField="User_name" DataValueField="User_name" style="width: 150px;"></asp:DropDownList>
+                                       <%-- <span>__________________</span><br />--%>
                                         </div>
                                         <div class="col-md-4">
                                         <strong>From Date:</strong> <span id="fromDateSpan">N/A</span><br />
@@ -163,7 +164,7 @@
 
     <script>
         window.addEventListener('load', function () {
-            // Update From Date and To Date dynamically
+            
             const fromDate = document.getElementById('<%= fromDate.ClientID %>').value;
             const toDate = document.getElementById('<%= toDate.ClientID %>').value;
 

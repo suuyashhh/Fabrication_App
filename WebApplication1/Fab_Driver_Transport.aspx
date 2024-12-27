@@ -81,14 +81,12 @@
 <body>
     <form id="form1" runat="server">
         <div class="container-fluid">
-            <!-- Page Header -->
             <div class="header">
                 <img src="FabImage/delivery_9252188.png" alt="Doctor Icon" />
                 <h1>Transport List</h1>
             </div>
 
             <div class="content">
-                <!-- Date Pickers -->
                 <div class="row justify-content-center">
                     <div class="col-md-6 month-box">
                         <div class="card shadow-sm p-4">
@@ -112,12 +110,10 @@
                     </div>
                 </div>
 
-                <!-- Salary Slip Card -->
                 <div class="card shadow mt-5 month-box">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
-                            <strong>HELPER NAME:</strong><br />
-                            <span>__________________</span>
+                            <span style="color:red">TRANSPORT:</span>
                         </div>
                         <div>
                             <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" />
@@ -130,41 +126,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="salary-slip-table table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Place</th>
-                                        <th>Payment</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>12-1-2020</td>
-                                        <td>Kolhapur</td>
-                                        <td>500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12-1-2020</td>
-                                        <td>Kolhapur</td>
-                                        <td>500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12-1-2020</td>
-                                        <td>Kolhapur</td>
-                                        <td>500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12-1-2020</td>
-                                        <td>Kolhapur</td>
-                                        <td>500</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><strong>TOTAL</strong></td>
-                                        <td>6767878</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <asp:Literal ID="TransportSlip" runat="server"></asp:Literal>
                         </div>
                     </div>
                 </div>

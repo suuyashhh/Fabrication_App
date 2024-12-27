@@ -77,6 +77,10 @@
             .btn-submit:hover {
                 background-color: #0a58ca;
             }
+
+        .date-label {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -88,32 +92,49 @@
                 <h1>Daily Helper Attendance</h1>
             </div>
 
-            <div class="content">             
-                <div class="card shadow mt-5 month-box">                   
+            <div class="content">
+                <div class="card shadow mt-5 month-box">
                     <div class="card-body text-center">
                         <h5><strong>Attendance-</strong></h5>
+                    </div>
+                    <div class="card-body date-label">
+                        <asp:Label ID="lblDate" runat="server"></asp:Label><br />
+                        <asp:Label ID="lblDay" runat="server" CssClass="day-label"></asp:Label>
                     </div>
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="salary-slip-table table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Work Day</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Tejas</td>
-                                        <td>FULL DAY</td>
-                                        <td>12-jan-2024 12:24:09 pm</td>
-                                    </tr>
-                                   
-                                </tbody>
-                            </table>
+                            <asp:GridView runat="server" ID="gridAttendance" DataKeyNames="H_id" AutoGenerateColumns="false" OnRowEditing="gridAttendance_RowEditing" OnRowCancelingEdit="gridAttendance_RowCancelingEdit" OnRowUpdating="gridAttendance_RowUpdating" OnRowDeleting="gridAttendance_RowDeleting" CssClass="table table-striped table-bordered " Style="border: 1px solid #10a37f; border-radius: 6px; margin-top: 20px">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Name:">
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" ID="lblname" Text='<%# Eval("User_name") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Day Type:">
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" ID="lblday" Text='<%# Eval("User_day") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <asp:TextBox runat="server" ID="txtday" Text='<%# Eval("User_day") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Date:">
+                                        <ItemTemplate>
+                                            <asp:Label runat="server" ID="lblDate" Text='<%# Convert.ToDateTime(Eval("date")).ToString("hh:mm tt") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <asp:TextBox runat="server" ID="txtDate" Text='<%# Convert.ToDateTime(Eval("date")).ToString("dd-MMM-yyyy hh:mm tt") %>'></asp:TextBox>
+                                        </EditItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowDeleteButton="true" />
+                                </Columns>
+                            </asp:GridView>
                         </div>
+
                     </div>
                 </div>
             </div>
