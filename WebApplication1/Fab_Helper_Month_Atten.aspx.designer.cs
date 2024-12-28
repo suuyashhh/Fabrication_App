@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class Doctor
+    public partial class Fab_Helper_Month_Atten
     {
 
         /// <summary>
@@ -58,5 +58,14 @@ namespace WebApplication1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
+
+        /// <summary>
+        /// rptAttendanceSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptAttendanceSummary;
     }
 }

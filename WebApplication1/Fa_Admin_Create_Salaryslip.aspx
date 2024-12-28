@@ -5,7 +5,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Create Salary Slip</title>
+    <title>Monthly Attendance Management</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,11 +33,11 @@
             z-index: 1000;
         }
 
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-            color: #495057;
-        }
+            .header h1 {
+                font-size: 24px;
+                margin: 0;
+                color: #495057;
+            }
 
         .content {
             padding: 100px 15px 20px;
@@ -51,9 +51,9 @@
             border: none;
         }
 
-        .btn-submit:hover {
-            background-color: #0a58ca;
-        }
+            .btn-submit:hover {
+                background-color: #0a58ca;
+            }
     </style>
 </head>
 <body>
@@ -62,7 +62,7 @@
             <!-- Header Section -->
             <div class="header d-flex align-items-center">
                 <img src="FabImage/calendar_4310927.png" alt="Doctor Icon" height="50" class="me-2" />
-                <h1>Admin Create Salary Slip</h1>
+                <h1>Monthly Attendance Management</h1>
             </div>
 
             <div class="content">
@@ -81,7 +81,10 @@
                                 </div>
                             </div>
                             <div class="text-center mt-4">
-                                <asp:Button ID="btnSearchDatePE" OnClientClick="return valid()" Text="Search" CssClass="btn btn-submit" runat="server" />
+                                <asp:Button ID="btnSearchDatePE" Text="Search" CssClass="btn btn-submit" runat="server" OnClick="btnSearchDatePE_Click" />
+
+
+                                <%--<asp:Button ID="btnSearchDatePE" OnClientClick="return valid()" Text="Search" CssClass="btn btn-submit" runat="server" />--%>
                             </div>
                         </div>
                     </div>
@@ -95,10 +98,10 @@
                                 <div class="row g-3">
                                     <div class="col-md-4">
                                         <strong>HELPER NAME:</strong><br />
-                                         <asp:DropDownList ID="ddlHelpername" runat="server" CssClass="form-control form-control-sm" DataTextField="User_name" DataValueField="User_name" style="width: 150px;"></asp:DropDownList>
-                                       <%-- <span>__________________</span><br />--%>
-                                        </div>
-                                        <div class="col-md-4">
+                                        <asp:DropDownList ID="ddlHelpername" runat="server" CssClass="form-control form-control-sm" DataTextField="User_name" DataValueField="User_name" Style="width: 150px;"></asp:DropDownList>
+
+                                    </div>
+                                    <div class="col-md-4">
                                         <strong>From Date:</strong> <span id="fromDateSpan">N/A</span><br />
                                         <strong>To Date:</strong> <span id="toDateSpan">N/A</span>
                                     </div>
@@ -111,46 +114,74 @@
                                 <h5><strong>SALARY SLIP FOR THE MONTH OF -</strong></h5>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th></th>
-                                            <th>Days</th>
-                                            <th>Salary</th>
-                                            <th>Total Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+
+
+                                <asp:Repeater ID="rptAttendanceSummary" runat="server">
+                                    <HeaderTemplate>
+                                        <table class="table table-bordered">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Days</th>
+                                                    <th>Salary</th>
+                                                    <th>Total Salary</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
                                         <tr>
                                             <td>FULL DAY</td>
-                                            <td>13</td>
-                                            <td>500</td>
-                                            <td>6500</td>
+                                            <td><%# Eval("FullDay_Count") %>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    value="<%# Eval("User_salary") %>"
+                                                    id="fullDayCount_<%# Container.ItemIndex %>" />
+
+                                                <td><%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %></td>
                                         </tr>
                                         <tr>
                                             <td>HALF DAY</td>
-                                            <td>5</td>
-                                            <td>250</td>
-                                            <td>1500</td>
+                                            <td><%# Eval("HalfDay_Count") %>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    value="<%#(Convert.ToDecimal(Eval("User_salary")) / 2) %>"
+                                                    id="halfDayCount_<%# Container.ItemIndex %>" />
+                                                <td><%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %></td>
                                         </tr>
                                         <tr>
                                             <td>OFF DAY</td>
-                                            <td>0</td>
+                                            <td><%# Eval("OffDay_Count") %></td>
                                             <td>0</td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>ADVANCE</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
+                                            <td></td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    value="<%# Eval("TOTAL_ADVANCE") %>"
+                                                    id="totalAdvance_<%# Container.ItemIndex %>" />
+                                            </td>
+                                            <td>-<%# Eval("TOTAL_ADVANCE") %></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"><strong>TOTAL</strong></td>
-                                            <td>6767878</td>
+                                            <td>
+                                                <%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
+                     + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
+                     - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>
+                                            </td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
+    </table>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+
                             </div>
                         </div>
                     </div>
@@ -164,7 +195,6 @@
 
     <script>
         window.addEventListener('load', function () {
-            
             const fromDate = document.getElementById('<%= fromDate.ClientID %>').value;
             const toDate = document.getElementById('<%= toDate.ClientID %>').value;
 
@@ -194,3 +224,4 @@
     </script>
 </body>
 </html>
+

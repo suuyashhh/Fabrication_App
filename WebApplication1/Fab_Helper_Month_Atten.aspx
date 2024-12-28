@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fa_Helper_Month_Atten.aspx.cs" Inherits="WebApplication1.Doctor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Helper_Month_Atten.aspx.cs" Inherits="WebApplication1.Fab_Helper_Month_Atten" %>
+
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -33,11 +34,11 @@
             z-index: 1000;
         }
 
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-            color: #495057;
-        }
+            .header h1 {
+                font-size: 24px;
+                margin: 0;
+                color: #495057;
+            }
 
         .content {
             padding: 100px 15px 20px;
@@ -51,9 +52,9 @@
             border: none;
         }
 
-        .btn-submit:hover {
-            background-color: #0a58ca;
-        }
+            .btn-submit:hover {
+                background-color: #0a58ca;
+            }
     </style>
 </head>
 <body>
@@ -96,8 +97,8 @@
                                     <div class="col-md-4">
                                         <strong>HELPER NAME:</strong><br />
                                         <span>__________________</span><br />
-                                        </div>
-                                        <div class="col-md-4">
+                                    </div>
+                                    <div class="col-md-4">
                                         <strong>From Date:</strong> <span id="fromDateSpan">N/A</span><br />
                                         <strong>To Date:</strong> <span id="toDateSpan">N/A</span>
                                     </div>
@@ -110,46 +111,65 @@
                                 <h5><strong>SALARY SLIP FOR THE MONTH OF -</strong></h5>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th></th>
-                                            <th>Days</th>
-                                            <th>Salary</th>
-                                            <th>Total Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                             
+
+                                <asp:Repeater ID="rptAttendanceSummary" runat="server">
+                                    <HeaderTemplate>
+                                        <table class="table table-bordered">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Days</th>
+                                                    <th>Salary</th>
+                                                    <th>Total Salary</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
                                         <tr>
                                             <td>FULL DAY</td>
-                                            <td>13</td>
-                                            <td>500</td>
-                                            <td>6500</td>
+                                            <td><%# Eval("FullDay_Count") %></td>
+                                            <td><%# Eval("User_salary") %></td>
+                                            <td><%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %></td>
                                         </tr>
                                         <tr>
                                             <td>HALF DAY</td>
-                                            <td>5</td>
-                                            <td>250</td>
-                                            <td>1500</td>
+                                            <td><%# Eval("HalfDay_Count") %></td>
+                                            <td><%# (Convert.ToDecimal(Eval("User_salary")) / 2) %></td>
+                                            <td><%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %></td>
                                         </tr>
                                         <tr>
                                             <td>OFF DAY</td>
-                                            <td>0</td>
+                                            <td><%# Eval("OffDay_Count") %></td>
                                             <td>0</td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>ADVANCE</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
+                                            <td></td>
+                                            <td><%# Eval("TOTAL_ADVANCE") %></td>
+                                            <td><%# Eval("TOTAL_ADVANCE") %></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"><strong>TOTAL</strong></td>
-                                            <td>6767878</td>
+                                            <td>
+                                                <%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
+                     + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
+                     - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>
+                                            </td>
                                         </tr>
-                                    </tbody>
-                                </table>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
+        </table>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -193,3 +213,4 @@
     </script>
 </body>
 </html>
+

@@ -464,6 +464,7 @@
     <Content Include="Fab_Admin_Transport.aspx" />
     <Content Include="Fab_Helper_Att.aspx" />
     <Content Include="Fab_Helper_Login.aspx" />
+    <Content Include="Fab_Helper_Month_Atten.aspx" />
     <Content Include="Fab_Helper_Registration.aspx" />
     <Content Include="Fa_Admin_Create_Salaryslip.aspx" />
     <Content Include="Fa_Admin_DatePE.aspx" />
@@ -473,7 +474,6 @@
     <Content Include="Fa_Admin_SpecificRecords.aspx" />
     <Content Include="Fa_Admin_WebPage.aspx" />
     <Content Include="Fab_Driver_Transport.aspx" />
-    <Content Include="Fa_Helper_Month_Atten.aspx" />
     <Content Include="Fa_Helper_SalaryBill.aspx" />
     <Content Include="Fa_Helper_WebPage.aspx" />
     <Content Include="favicon.ico" />
@@ -722,6 +722,13 @@
     <Compile Include="Fab_Helper_Login.aspx.designer.cs">
       <DependentUpon>Fab_Helper_Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Fab_Helper_Month_Atten.aspx.cs">
+      <DependentUpon>Fab_Helper_Month_Atten.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fab_Helper_Month_Atten.aspx.designer.cs">
+      <DependentUpon>Fab_Helper_Month_Atten.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Fab_Helper_Registration.aspx.cs">
       <DependentUpon>Fab_Helper_Registration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -784,13 +791,6 @@
     </Compile>
     <Compile Include="Fab_Driver_Transport.aspx.designer.cs">
       <DependentUpon>Fab_Driver_Transport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Fa_Helper_Month_Atten.aspx.cs">
-      <DependentUpon>Fa_Helper_Month_Atten.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Fa_Helper_Month_Atten.aspx.designer.cs">
-      <DependentUpon>Fa_Helper_Month_Atten.aspx</DependentUpon>
     </Compile>
     <Compile Include="Fa_Helper_SalaryBill.aspx.cs">
       <DependentUpon>Fa_Helper_SalaryBill.aspx</DependentUpon>
