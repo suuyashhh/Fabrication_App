@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fa_Admin_Create_Salaryslip.aspx.cs" Inherits="WebApplication1.Fab_Admin_Create_Salaryslip" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Admin_Create_Salaryslip.aspx.cs" Inherits="WebApplication1.Fab_Admin_Create_Salaryslip" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="text-center mt-4">
-                                <asp:Button ID="btnSearchDatePE" Text="Search" CssClass="btn btn-submit" runat="server" OnClick="btnSearchDatePE_Click" />
+                                <asp:Button ID="btnSearchDatePE" Text="Search" OnClientClick="return valid()" CssClass="btn btn-submit" runat="server" OnClick="btnSearchDatePE_Click" />
 
 
                                 <%--<asp:Button ID="btnSearchDatePE" OnClientClick="return valid()" Text="Search" CssClass="btn btn-submit" runat="server" />--%>
@@ -98,7 +98,10 @@
                                 <div class="row g-3">
                                     <div class="col-md-4">
                                         <strong>HELPER NAME:</strong><br />
-                                        <asp:DropDownList ID="ddlHelpername" runat="server" CssClass="form-control form-control-sm" DataTextField="User_name" DataValueField="User_name" Style="width: 150px;"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlHelpername" runat="server" CssClass="form-control form-control-sm"
+                                            DataTextField="User_name" DataValueField="User_name" Style="width: 150px;">
+                                            <asp:ListItem Text="--Select Helper--" Value="" Selected="True"></asp:ListItem>
+                                        </asp:DropDownList>
 
                                     </div>
                                     <div class="col-md-4">
@@ -106,7 +109,7 @@
                                         <strong>To Date:</strong> <span id="toDateSpan">N/A</span>
                                     </div>
                                     <div class="col-md-4 text-end">
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" />
+                                        <asp:Button ID="btnSave" runat="server" OnClientClick="return validS()" OnClick="btnSave_Click" Text="Save" CssClass="btn btn-primary" />
                                     </div>
                                 </div>
                             </div>
@@ -136,11 +139,11 @@
                                                 <%# Eval("FullDay_Count") %>
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control salary-input"
+                                                <asp:textbox runat="server" type="number" class="form-control salary-input"
                                                     value="<%# Eval("User_salary") %>"
                                                     data-item-index="<%# Container.ItemIndex %>"
                                                     id="fullDaySalary_<%# Container.ItemIndex %>"
-                                                    oninput="calculateSalary(<%# Container.ItemIndex %>)" />
+                                                    oninput="calculateSalary(<%# Container.ItemIndex %>)"></asp:textbox>
                                             </td>
                                             <td id="fullDayTotal_<%# Container.ItemIndex %>">
                                                 <%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %>
@@ -162,6 +165,16 @@
                                                 <%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>OFF DAY</td>
+                                            <td id="offDayCount_<%# Container.ItemIndex %>">
+                                                <%# Eval("OffDay_Count") %>
+                                            </td>
+                                            <td>0
+                                            </td>
+                                            <td>0
+                                            </td>
+                                        </tr>
 
                                         <tr>
                                             <td>ADVANCE</td>
@@ -171,7 +184,7 @@
                                                     value="<%# Eval("TOTAL_ADVANCE") %>"
                                                     data-item-index="<%# Container.ItemIndex %>"
                                                     id="advanceAmount_<%# Container.ItemIndex %>"
-                                                    oninput="calculateSalary(<%# Container.ItemIndex %>)" />
+                                                    onchange="calculateSalary(<%# Container.ItemIndex %>)" />
                                             </td>
                                             <td id="advanceTotal_<%# Container.ItemIndex %>">-<%# Eval("TOTAL_ADVANCE") %>
                                             </td>
@@ -187,7 +200,7 @@
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         </tbody>
-        </table>
+                                       </table>
                                     </FooterTemplate>
                                 </asp:Repeater>
 
@@ -196,6 +209,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </form>
@@ -206,30 +221,31 @@
 
     <script>
         function calculateSalary(index) {
-            // Get the input values for Full Day, Half Day, and Advance
+
             const fullDaySalary = parseFloat(document.getElementById(`fullDaySalary_${index}`).value) || 0;
             const halfDaySalary = parseFloat(document.getElementById(`halfDaySalary_${index}`).value) || 0;
             const advanceAmount = parseFloat(document.getElementById(`advanceAmount_${index}`).value) || 0;
 
-            // Get the counts for Full Day and Half Day
             const fullDayCount = parseFloat(document.getElementById(`fullDayCount_${index}`).innerText) || 0;
             const halfDayCount = parseFloat(document.getElementById(`halfDayCount_${index}`).innerText) || 0;
 
-            // Calculate totals
+
             const fullDayTotal = fullDayCount * fullDaySalary;
             const halfDayTotal = halfDayCount * halfDaySalary;
-            const grandTotal = fullDayTotal + halfDayTotal - advanceAmount;
+            const advanceTotal = -advanceAmount;
+            const grandTotal = fullDayTotal + halfDayTotal + advanceTotal;
 
-            // Update the totals in the DOM
-            document.getElementById(`fullDayTotal_${index}`).innerText = fullDayTotal.toFixed(2);
-            document.getElementById(`halfDayTotal_${index}`).innerText = halfDayTotal.toFixed(2);
-            document.getElementById(`grandTotal_${index}`).innerText = grandTotal.toFixed(2);
+
+            document.getElementById(`fullDayTotal_${index}`).innerText = fullDayTotal.toFixed(0);
+            document.getElementById(`halfDayTotal_${index}`).innerText = halfDayTotal.toFixed(0);
+            document.getElementById(`advanceTotal_${index}`).innerText = advanceTotal.toFixed(0);
+            document.getElementById(`grandTotal_${index}`).innerText = grandTotal.toFixed(0);
         }
 
-        // Attach event listeners dynamically for real-time updates
+
         function attachInputListeners() {
-            const salaryInputs = document.querySelectorAll('.salary-input, .advance-input');
-            salaryInputs.forEach(input => {
+            const inputs = document.querySelectorAll('.salary-input, .advance-input');
+            inputs.forEach(input => {
                 input.addEventListener('input', (event) => {
                     const index = event.target.getAttribute('data-item-index');
                     calculateSalary(index);
@@ -237,8 +253,8 @@
             });
         }
 
-        // Attach listeners on page load
         window.addEventListener('DOMContentLoaded', attachInputListeners);
+
 
 
     </script>
@@ -256,9 +272,13 @@
         function valid() {
             const fromdate = document.getElementById('<%= fromDate.ClientID %>').value;
             const todate = document.getElementById('<%= toDate.ClientID %>').value;
+            const ddlHelper = document.getElementById('<%= ddlHelpername.ClientID %>');
 
             if (!fromdate || !todate) {
-                swal("Please fill all details to proceed..!", "", "error");
+                swal("Please fill The Date to proceed..!", "", "error");
+                return false;
+            } else if (ddlHelper.selectedIndex === 0) {
+                swal("Please select a Helper!", "", "error");
                 return false;
             }
 
@@ -272,6 +292,29 @@
 
             return true;
         }
+
+        function validS() {
+            const fromdate = document.getElementById('<%= fromDate.ClientID %>').value;
+            const todate = document.getElementById('<%= toDate.ClientID %>').value;
+
+            if (!fromdate || !todate) {
+                swal("Please fill The Date to proceed..!", "", "error");
+                return false;
+            }
+
+            const fromDateObj = new Date(fromdate);
+            const toDateObj = new Date(todate);
+
+            if (fromDateObj > toDateObj) {
+                swal("From Date cannot be later than To Date!", "", "warning");
+                return false;
+            }
+
+            return true;
+        }
+
+
+
     </script>
 </body>
 </html>

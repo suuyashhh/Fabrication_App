@@ -466,7 +466,7 @@
     <Content Include="Fab_Helper_Login.aspx" />
     <Content Include="Fab_Helper_Month_Atten.aspx" />
     <Content Include="Fab_Helper_Registration.aspx" />
-    <Content Include="Fa_Admin_Create_Salaryslip.aspx" />
+    <Content Include="Fab_Admin_Create_Salaryslip.aspx" />
     <Content Include="Fa_Admin_DatePE.aspx" />
     <Content Include="Fa_Admin_History.aspx" />
     <Content Include="Fab_Admin_Login.aspx" />
@@ -736,12 +736,12 @@
     <Compile Include="Fab_Helper_Registration.aspx.designer.cs">
       <DependentUpon>Fab_Helper_Registration.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Fa_Admin_Create_Salaryslip.aspx.cs">
-      <DependentUpon>Fa_Admin_Create_Salaryslip.aspx</DependentUpon>
+    <Compile Include="Fab_Admin_Create_Salaryslip.aspx.cs">
+      <DependentUpon>Fab_Admin_Create_Salaryslip.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Fa_Admin_Create_Salaryslip.aspx.designer.cs">
-      <DependentUpon>Fa_Admin_Create_Salaryslip.aspx</DependentUpon>
+    <Compile Include="Fab_Admin_Create_Salaryslip.aspx.designer.cs">
+      <DependentUpon>Fab_Admin_Create_Salaryslip.aspx</DependentUpon>
     </Compile>
     <Compile Include="Fa_Admin_DatePE.aspx.cs">
       <DependentUpon>Fa_Admin_DatePE.aspx</DependentUpon>

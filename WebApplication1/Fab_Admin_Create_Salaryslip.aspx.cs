@@ -132,5 +132,45 @@ ORDER BY
             // Proceed to bind the repeater
             BindAttendanceSummary(fromDateValue, toDateValue);
         }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            //con.Close();
+            //SqlCommand cmd = new SqlCommand("insert into Salary_Slip values (@user_id,@From_date,@TO_date,@Full_day,@Half_day,@off_day,@Full_salary,@Half_salary,@Advance_salary,@FUll_day_Total,@Half_day_total,@Advance_total,@Grand_total,@Slip_day)", con);
+
+            //cmd.Parameters.AddWithValue("@user_id", 1);
+            //cmd.Parameters.AddWithValue("@From_date", fromDateSpan.text);
+            //cmd.Parameters.AddWithValue("@TO_date", toDateSpan);
+            //cmd.Parameters.AddWithValue("@Full_day", fullDayCount_);
+            //cmd.Parameters.AddWithValue("@Half_day", halfDayCount_);
+            //cmd.Parameters.AddWithValue("@off_day", OffDay_Count);
+            //cmd.Parameters.AddWithValue("@Full_salary", fullDaySalary_);
+            //cmd.Parameters.AddWithValue("@Half_salary", halfDaySalary_);
+            //cmd.Parameters.AddWithValue("@Advance_salary", advanceAmount_);
+            //cmd.Parameters.AddWithValue("@FUll_day_Total", fullDayTotal_);
+            //cmd.Parameters.AddWithValue("@Half_day_total", halfDayTotal_);
+            //cmd.Parameters.AddWithValue("@Advance_total", advanceAmount_);
+            //cmd.Parameters.AddWithValue("@Grand_total", grandTotal_);
+            //cmd.Parameters.AddWithValue("@Slip_day", 1);
+
+
+      //      [Slip_id]
+      //,[User_id]
+      //,[From_Date]
+      //,[To_Date]
+      //,[Full_Day]
+      //,[Half_Day]
+      //,[Off_Day]
+      //,[Full_Salary]
+      //,[Half_Salary]
+      //,[Advance_Salary]
+      //,[Full_day_Total]
+      //,[Half_day_Total]
+      //,[Advance_Total]
+      //,[Grand_Total]
+      //,[Slip_Day]
+      //      FROM[XTraining].[dbo].[Salary_Slip]
+
+        }
     }
 }

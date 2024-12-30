@@ -12,12 +12,9 @@
     <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600&display=swap" rel="stylesheet" />
 
-
-
     <!-- Sweet Alert -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css" rel="stylesheet" type="text/css" />
-
 
 
     <style>
