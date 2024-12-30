@@ -132,44 +132,53 @@
                                     <ItemTemplate>
                                         <tr>
                                             <td>FULL DAY</td>
-                                            <td><%# Eval("FullDay_Count") %>
+                                            <td id="fullDayCount_<%# Container.ItemIndex %>">
+                                                <%# Eval("FullDay_Count") %>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control"
+                                                <input type="number" class="form-control salary-input"
                                                     value="<%# Eval("User_salary") %>"
-                                                    id="fullDayCount_<%# Container.ItemIndex %>" />
-
-                                                <td><%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %></td>
+                                                    data-item-index="<%# Container.ItemIndex %>"
+                                                    id="fullDaySalary_<%# Container.ItemIndex %>"
+                                                    oninput="calculateSalary(<%# Container.ItemIndex %>)" />
+                                            </td>
+                                            <td id="fullDayTotal_<%# Container.ItemIndex %>">
+                                                <%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>HALF DAY</td>
-                                            <td><%# Eval("HalfDay_Count") %>
+                                            <td id="halfDayCount_<%# Container.ItemIndex %>">
+                                                <%# Eval("HalfDay_Count") %>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control"
-                                                    value="<%#(Convert.ToDecimal(Eval("User_salary")) / 2) %>"
-                                                    id="halfDayCount_<%# Container.ItemIndex %>" />
-                                                <td><%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %></td>
+                                                <input type="number" class="form-control salary-input"
+                                                    value="<%# (Convert.ToDecimal(Eval("User_salary")) / 2) %>"
+                                                    data-item-index="<%# Container.ItemIndex %>"
+                                                    id="halfDaySalary_<%# Container.ItemIndex %>"
+                                                    onchange="calculateSalary(<%# Container.ItemIndex %>)" />
+                                            </td>
+                                            <td id="halfDayTotal_<%# Container.ItemIndex %>">
+                                                <%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>OFF DAY</td>
-                                            <td><%# Eval("OffDay_Count") %></td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
+
                                         <tr>
                                             <td>ADVANCE</td>
                                             <td></td>
                                             <td>
-                                                <input type="text" class="form-control"
+                                                <input type="number" class="form-control advance-input"
                                                     value="<%# Eval("TOTAL_ADVANCE") %>"
-                                                    id="totalAdvance_<%# Container.ItemIndex %>" />
+                                                    data-item-index="<%# Container.ItemIndex %>"
+                                                    id="advanceAmount_<%# Container.ItemIndex %>"
+                                                    oninput="calculateSalary(<%# Container.ItemIndex %>)" />
                                             </td>
-                                            <td>-<%# Eval("TOTAL_ADVANCE") %></td>
+                                            <td id="advanceTotal_<%# Container.ItemIndex %>">-<%# Eval("TOTAL_ADVANCE") %>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"><strong>TOTAL</strong></td>
-                                            <td>
+                                            <td id="grandTotal_<%# Container.ItemIndex %>">
                                                 <%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
                      + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
                      - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>
@@ -178,9 +187,10 @@
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         </tbody>
-    </table>
+        </table>
                                     </FooterTemplate>
                                 </asp:Repeater>
+
 
                             </div>
                         </div>
@@ -192,6 +202,47 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        function calculateSalary(index) {
+            // Get the input values for Full Day, Half Day, and Advance
+            const fullDaySalary = parseFloat(document.getElementById(`fullDaySalary_${index}`).value) || 0;
+            const halfDaySalary = parseFloat(document.getElementById(`halfDaySalary_${index}`).value) || 0;
+            const advanceAmount = parseFloat(document.getElementById(`advanceAmount_${index}`).value) || 0;
+
+            // Get the counts for Full Day and Half Day
+            const fullDayCount = parseFloat(document.getElementById(`fullDayCount_${index}`).innerText) || 0;
+            const halfDayCount = parseFloat(document.getElementById(`halfDayCount_${index}`).innerText) || 0;
+
+            // Calculate totals
+            const fullDayTotal = fullDayCount * fullDaySalary;
+            const halfDayTotal = halfDayCount * halfDaySalary;
+            const grandTotal = fullDayTotal + halfDayTotal - advanceAmount;
+
+            // Update the totals in the DOM
+            document.getElementById(`fullDayTotal_${index}`).innerText = fullDayTotal.toFixed(2);
+            document.getElementById(`halfDayTotal_${index}`).innerText = halfDayTotal.toFixed(2);
+            document.getElementById(`grandTotal_${index}`).innerText = grandTotal.toFixed(2);
+        }
+
+        // Attach event listeners dynamically for real-time updates
+        function attachInputListeners() {
+            const salaryInputs = document.querySelectorAll('.salary-input, .advance-input');
+            salaryInputs.forEach(input => {
+                input.addEventListener('input', (event) => {
+                    const index = event.target.getAttribute('data-item-index');
+                    calculateSalary(index);
+                });
+            });
+        }
+
+        // Attach listeners on page load
+        window.addEventListener('DOMContentLoaded', attachInputListeners);
+
+
+    </script>
+
 
     <script>
         window.addEventListener('load', function () {
