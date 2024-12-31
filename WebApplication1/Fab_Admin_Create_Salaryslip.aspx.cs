@@ -117,60 +117,87 @@ ORDER BY
 
             if (!DateTime.TryParse(fromDate.Text, out fromDateValue) || !DateTime.TryParse(toDate.Text, out toDateValue))
             {
-                // Show error message
+            
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "swal('Invalid Date Format', '', 'error');", true);
                 return;
             }
 
             if (fromDateValue > toDateValue)
             {
-                // Show error message
+            
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "swal('From Date cannot be later than To Date!', '', 'warning');", true);
                 return;
             }
 
-            // Proceed to bind the repeater
+            
             BindAttendanceSummary(fromDateValue, toDateValue);
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            //con.Close();
-            //SqlCommand cmd = new SqlCommand("insert into Salary_Slip values (@user_id,@From_date,@TO_date,@Full_day,@Half_day,@off_day,@Full_salary,@Half_salary,@Advance_salary,@FUll_day_Total,@Half_day_total,@Advance_total,@Grand_total,@Slip_day)", con);
+            
+            string userId = ddlHelpername.SelectedValue; 
+            string fromDat = fromDate.Text; 
+            string toDat = toDate.Text; 
 
-            //cmd.Parameters.AddWithValue("@user_id", 1);
-            //cmd.Parameters.AddWithValue("@From_date", fromDateSpan.text);
-            //cmd.Parameters.AddWithValue("@TO_date", toDateSpan);
-            //cmd.Parameters.AddWithValue("@Full_day", fullDayCount_);
-            //cmd.Parameters.AddWithValue("@Half_day", halfDayCount_);
-            //cmd.Parameters.AddWithValue("@off_day", OffDay_Count);
-            //cmd.Parameters.AddWithValue("@Full_salary", fullDaySalary_);
-            //cmd.Parameters.AddWithValue("@Half_salary", halfDaySalary_);
-            //cmd.Parameters.AddWithValue("@Advance_salary", advanceAmount_);
-            //cmd.Parameters.AddWithValue("@FUll_day_Total", fullDayTotal_);
-            //cmd.Parameters.AddWithValue("@Half_day_total", halfDayTotal_);
-            //cmd.Parameters.AddWithValue("@Advance_total", advanceAmount_);
-            //cmd.Parameters.AddWithValue("@Grand_total", grandTotal_);
-            //cmd.Parameters.AddWithValue("@Slip_day", 1);
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(fromDat) || string.IsNullOrEmpty(toDat))
+            {
+                Response.Write("<script>alert('Please fill in all required fields.');</script>");
+                return;
+            }
 
+            
+            string connectionString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
 
-      //      [Slip_id]
-      //,[User_id]
-      //,[From_Date]
-      //,[To_Date]
-      //,[Full_Day]
-      //,[Half_Day]
-      //,[Off_Day]
-      //,[Full_Salary]
-      //,[Half_Salary]
-      //,[Advance_Salary]
-      //,[Full_day_Total]
-      //,[Half_day_Total]
-      //,[Advance_Total]
-      //,[Grand_Total]
-      //,[Slip_Day]
-      //      FROM[XTraining].[dbo].[Salary_Slip]
+            
+                foreach (RepeaterItem item in rptAttendanceSummary.Items)
+                {
+            
+                    int fullDayCount = int.Parse(((Label)item.FindControl("fullDayCount")).Text);
+                    int halfDayCount = int.Parse(((Label)item.FindControl("halfDayCount")).Text);
+                    int offDayCount = int.Parse(((Label)item.FindControl("offDayCount")).Text);
+                    decimal fullDaySalary = decimal.Parse(((TextBox)item.FindControl("fullDaySalary")).Text);
+                    decimal halfDaySalary = decimal.Parse(((TextBox)item.FindControl("halfDaySalary")).Text);
+                    decimal advanceAmount = decimal.Parse(((TextBox)item.FindControl("advanceAmount")).Text);
+                    decimal fullDayTotal = decimal.Parse(((Label)item.FindControl("fullDayTotal")).Text);
+                    decimal halfDayTotal = decimal.Parse(((Label)item.FindControl("halfDayTotal")).Text);
+                    decimal grandTotal = decimal.Parse(((Label)item.FindControl("grandTotal")).Text);
 
+            
+                    string query = @"
+                INSERT INTO Salary_Slip 
+                (user_id, From_date, TO_date, Full_day, Half_day, Off_day, Full_salary, Half_salary, Advance_salary, Full_day_Total, Half_day_total, Advance_total, Grand_total, Slip_day)
+                VALUES 
+                (@user_id, @From_date, @TO_date, @Full_day, @Half_day, @Off_day, @Full_salary, @Half_salary, @Advance_salary, @Full_day_Total, @Half_day_total, @Advance_total, @Grand_total, @Slip_day)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", userId);
+                        cmd.Parameters.AddWithValue("@From_date", fromDate);
+                        cmd.Parameters.AddWithValue("@TO_date", toDate);
+                        cmd.Parameters.AddWithValue("@Full_day", fullDayCount);
+                        cmd.Parameters.AddWithValue("@Half_day", halfDayCount);
+                        cmd.Parameters.AddWithValue("@Off_day", offDayCount);
+                        cmd.Parameters.AddWithValue("@Full_salary", fullDaySalary);
+                        cmd.Parameters.AddWithValue("@Half_salary", halfDaySalary);
+                        cmd.Parameters.AddWithValue("@Advance_salary", advanceAmount);
+                        cmd.Parameters.AddWithValue("@Full_day_Total", fullDayTotal);
+                        cmd.Parameters.AddWithValue("@Half_day_total", halfDayTotal);
+                        cmd.Parameters.AddWithValue("@Advance_total", advanceAmount);
+                        cmd.Parameters.AddWithValue("@Grand_total", grandTotal);
+                        cmd.Parameters.AddWithValue("@Slip_day", 1);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            Response.Write("<script>alert('Salary slip saved successfully.');</script>");
         }
+
+
     }
 }

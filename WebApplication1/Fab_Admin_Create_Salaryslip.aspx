@@ -5,7 +5,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Monthly Attendance Management</title>
+    <title>Create Salary Slip</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
         <div class="container-fluid">
             <!-- Header Section -->
             <div class="header d-flex align-items-center">
-                <img src="FabImage/calendar_4310927.png" alt="Doctor Icon" height="50" class="me-2" />
+                <img src="FabImage/AdminCreateSalaySlip.png" alt="Doctor Icon" height="50" class="me-2" />
                 <h1>Monthly Attendance Management</h1>
             </div>
 
@@ -139,11 +139,11 @@
                                                 <%# Eval("FullDay_Count") %>
                                             </td>
                                             <td>
-                                                <asp:textbox runat="server" type="number" class="form-control salary-input"
+                                                <input type="number" class="form-control salary-input"
                                                     value="<%# Eval("User_salary") %>"
                                                     data-item-index="<%# Container.ItemIndex %>"
                                                     id="fullDaySalary_<%# Container.ItemIndex %>"
-                                                    oninput="calculateSalary(<%# Container.ItemIndex %>)"></asp:textbox>
+                                                    oninput="calculateSalary(<%# Container.ItemIndex %>)" />
                                             </td>
                                             <td id="fullDayTotal_<%# Container.ItemIndex %>">
                                                 <%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %>
@@ -192,9 +192,9 @@
                                         <tr>
                                             <td colspan="3"><strong>TOTAL</strong></td>
                                             <td id="grandTotal_<%# Container.ItemIndex %>">
-                                                <%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
-                     + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
-                     - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>
+                                                            <%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
+                                 + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
+                                 - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>
                                             </td>
                                         </tr>
                                     </ItemTemplate>

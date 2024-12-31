@@ -42,22 +42,31 @@ namespace WebApplication1
         protected global::System.Web.UI.WebControls.TextBox toDate;
 
         /// <summary>
-        /// btnSearchDatePE control.
+        /// btnSearchDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearchDatePE;
+        protected global::System.Web.UI.WebControls.Button btnSearchDate;
 
         /// <summary>
-        /// btnSave control.
+        /// fromDateSpan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fromDateSpan;
+
+        /// <summary>
+        /// toDateSpan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl toDateSpan;
 
         /// <summary>
         /// TransportSlip control.

@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class AWebPage
+    public partial class Fab_Admin_WebPage
     {
 
         /// <summary>

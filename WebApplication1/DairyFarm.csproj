@@ -450,29 +450,35 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="FabImage\AdminCreateSalaySlip.png" />
+    <Content Include="FabImage\AdminMaster.png" />
     <Content Include="FabImage\Attendense.png" />
     <Content Include="FabImage\Expanse.png" />
+    <Content Include="FabImage\FabDailyAttandance.png" />
+    <Content Include="FabImage\HelperAttendance.png" />
     <Content Include="FabImage\MasterAdmin.png" />
     <Content Include="FabImage\MonthAttendanse.png" />
     <Content Include="FabImage\MonthSalery.png" />
     <Content Include="FabImage\Profit.png" />
+    <Content Include="FabImage\TransportList.png" />
     <Content Include="FabImage\Truck.png" />
     <Content Include="Fab_Admin_Attendance.aspx" />
     <Content Include="Fab_Admin_Expanse.aspx" />
     <Content Include="Fab_Admin_Master.aspx" />
     <Content Include="Fab_Admin_Profit.aspx" />
     <Content Include="Fab_Admin_Transport.aspx" />
+    <Content Include="Fab_Admin_WebPage.aspx" />
     <Content Include="Fab_Helper_Att.aspx" />
     <Content Include="Fab_Helper_Login.aspx" />
     <Content Include="Fab_Helper_Month_Atten.aspx" />
     <Content Include="Fab_Helper_Registration.aspx" />
     <Content Include="Fab_Admin_Create_Salaryslip.aspx" />
+    <Content Include="Fab_Helper_WebPage.aspx" />
     <Content Include="Fa_Admin_DatePE.aspx" />
     <Content Include="Fa_Admin_History.aspx" />
     <Content Include="Fab_Admin_Login.aspx" />
     <Content Include="Fa_Admin_MonthlyPE.aspx" />
     <Content Include="Fa_Admin_SpecificRecords.aspx" />
-    <Content Include="Fa_Admin_WebPage.aspx" />
     <Content Include="Fab_Driver_Transport.aspx" />
     <Content Include="Fa_Helper_SalaryBill.aspx" />
     <Content Include="Fa_Helper_WebPage.aspx" />
@@ -708,6 +714,13 @@
     <Compile Include="Fab_Admin_Transport.aspx.designer.cs">
       <DependentUpon>Fab_Admin_Transport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Fab_Admin_WebPage.aspx.cs">
+      <DependentUpon>Fab_Admin_WebPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fab_Admin_WebPage.aspx.designer.cs">
+      <DependentUpon>Fab_Admin_WebPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Fab_Helper_Att.aspx.cs">
       <DependentUpon>Fab_Helper_Att.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -743,6 +756,13 @@
     <Compile Include="Fab_Admin_Create_Salaryslip.aspx.designer.cs">
       <DependentUpon>Fab_Admin_Create_Salaryslip.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Fab_Helper_WebPage.aspx.cs">
+      <DependentUpon>Fab_Helper_WebPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fab_Helper_WebPage.aspx.designer.cs">
+      <DependentUpon>Fab_Helper_WebPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Fa_Admin_DatePE.aspx.cs">
       <DependentUpon>Fa_Admin_DatePE.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -777,13 +797,6 @@
     </Compile>
     <Compile Include="Fa_Admin_SpecificRecords.aspx.designer.cs">
       <DependentUpon>Fa_Admin_SpecificRecords.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Fa_Admin_WebPage.aspx.cs">
-      <DependentUpon>Fa_Admin_WebPage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Fa_Admin_WebPage.aspx.designer.cs">
-      <DependentUpon>Fa_Admin_WebPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Fab_Driver_Transport.aspx.cs">
       <DependentUpon>Fab_Driver_Transport.aspx</DependentUpon>

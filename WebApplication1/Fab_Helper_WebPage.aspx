@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fa_Admin_WebPage.aspx.cs" Inherits="WebApplication1.AWebPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Helper_WebPage.aspx.cs" Inherits="WebApplication1.Fab_Helper_WebPage" %>
 
 <!DOCTYPE html>
 
@@ -64,16 +64,16 @@
 
         .box {
             background-color: #f8f9fa;
-            padding: 8px; 
+            padding: 8px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
             border-radius: 6px;
-            transition: transform 0.2s; 
+            transition: transform 0.2s;
         }
 
             .box img {
-                max-width: 50px; 
+                max-width: 50px;
                 margin-bottom: 8px;
             }
 
@@ -81,16 +81,16 @@
                 margin: 0;
                 font-weight: bold;
                 color: #343a40;
-                font-size: 12px; 
+                font-size: 12px;
             }
 
             .box:hover {
-                transform: scale(1.05); 
+                transform: scale(1.05);
             }
 
         @media (max-width: 768px) {
             .col-4 {
-                max-width: 50%; 
+                max-width: 50%;
             }
         }
 
@@ -113,8 +113,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto"></ul>
-                <asp:Button ID="logoutButton" runat="server" Text="Logout" OnClick="logoutButton_Click1" CssClass="btn btn-primary my-2 my-sm-0" />
-
+                <asp:Button ID="logoutButton" runat="server" Text="Logout" CssClass="btn btn-primary my-2 my-sm-0" />
 
 
             </div>
@@ -125,14 +124,33 @@
             <!-- First row -->
             <div class="row row-spacing">
                 <div class="col-4">
-                    <div class="box" onclick="window.location.href='Fab_Admin_Master.aspx';" style="cursor: pointer;">
-                        <img src="FabImage/MasterAdmin.png" alt="Image 1" />
-                        <h5>Admin Master</h5>
+                    <div class="box" onclick="window.location.href='Fab_Helper_Att.aspx';" style="cursor: pointer;">
+                        <img src="FabImage/Attendense.png" alt="Image 1" />
+                        <h5>Attendance</h5>
                     </div>
                 </div>
                 <div class="col-4">
+                    <div class="box" onclick="window.location.href='Fab_Helper_Month_Atten.aspx';" style="cursor: pointer;">
+                        <img src="FabImage/MonthAttendanse.png" alt="Image 2" />
+                        <h5>Monthly Attendance</h5>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="box" onclick="window.location.href='Fab_Helper_SalaryBill.aspx';" style="cursor: pointer;">
+                        <img src="FabImage/MonthSalery.png" alt="Image 1" />
+                        <h5>Salary Bill</h5>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Second row -->
+            <div class="row row-spacing">
+                <div class="col-4">
                     <div class="box" onclick="window.location.href='Fab_Admin_Expanse.aspx';" style="cursor: pointer;">
-                        <img src="FabImage/Expanse.png" alt="Image 2" />
+                        <img src="FabImage/Expanse.png" alt="Image 3" />
                         <h5>Good Expanse</h5>
                     </div>
                 </div>
@@ -142,83 +160,7 @@
                         <h5>Profit</h5>
                     </div>
                 </div>
-            </div>
-
-            <!-- Second row -->
-            <div class="row row-spacing">
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='Fab_Helper_Att.aspx';" style="cursor: pointer;">
-                        <img src="FabImage/Attendense.png" alt="Image 1" />
-                        <h5>Check Attendance</h5>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='Fab_Helper_Month_Atten.aspx';" style="cursor: pointer;">
-                        <img src="FabImage/MonthAttendanse.png" alt="Image 2" />
-                        <h5>Month Attedense</h5>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='Fab_Admin_Create_Salaryslip.aspx';" style="cursor: pointer;">
-                        <img src="FabImage/MonthSalery.png" alt="Image 3" />
-                        <h5>Create Salary Slip</h5>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Third row -->
-            <div class="row row-spacing">
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='MonthlyPE.aspx';" style="cursor: pointer;">
-                        <img src="assets/img/fiscal_13495984.png" alt="Image 1" />
-                        <h5>Monthly Profit Expense</h5>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='DatePE.aspx';" style="cursor: pointer;">
-                        <img src="assets/img/calendar_16118660.png" alt="Image 2" />
-                        <h5>Days Profit Expense</h5>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='SpecificRecords.aspx';" style="cursor: pointer;">
-                        <img src="assets/img/target_10772314.png" alt="Image 3" />
-                        <h5>Specific Record</h5>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Fourth row -->
-            <div class="row row-spacing">
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='History.aspx';" style="cursor: pointer;">
-                        <img src="assets/img/HistoryRecord.png" alt="Image 1" />
-                        <h5>History</h5>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='Fab_Admin_Transport.aspx';" style="cursor: pointer;">
-                        <img src="FabImage/Truck.png" alt="Image 2" />
-                        <h5>Transport</h5>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='CattleBreedingD.aspx';" style="cursor: pointer;">
-                        <img src="assets/img/horse_2632262.png" alt="Image 1" />
-                        <h5>Cattle Breeding</h5>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fifth row -->
-            <div class="row row-spacing">
-                <div class="col-4">
-                    <div class="box" onclick="window.location.href='Calculator.aspx';" style="cursor: pointer;">
-                        <img src="assets/img/calculator_1325970.png" alt="Image 2" />
-                        <h5>Calculator</h5>
-                    </div>
-                </div>
+                
             </div>
         </div>
 

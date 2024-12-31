@@ -82,7 +82,7 @@
     <form id="form1" runat="server">
         <div class="container-fluid">
             <div class="header">
-                <img src="FabImage/delivery_9252188.png" alt="Doctor Icon" />
+                <img src="FabImage/TransportList.png" alt="Doctor Icon" />
                 <h1>Transport List</h1>
             </div>
 
@@ -103,7 +103,8 @@
 
                             <div class="row mt-4">
                                 <div class="col text-center">
-                                    <asp:Button ID="btnSearchDatePE" OnClientClick="return valid()" Text="Search" CssClass="btn btn-submit" runat="server" />
+                                    <asp:Button ID="btnSearchDate" OnClick="btnSearchDate_Click" OnClientClick="return valid()" Text="Search" CssClass="btn btn-submit" runat="server" />
+
                                 </div>
                             </div>
                         </div>
@@ -111,12 +112,18 @@
                 </div>
 
                 <div class="card shadow mt-5 month-box">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <span style="color:red">TRANSPORT:</span>
-                        </div>
-                        <div>
-                            <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" />
+
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <span style="color: red">TRANSPORT:</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>From Date:</strong> <span id="fromDateSpan" runat="server">N/A</span><br />
+                                <strong>To Date:</strong> <span id="toDateSpan" runat="server">N/A</span>
+                            </div>
+
+                            
                         </div>
                     </div>
 
@@ -182,7 +189,7 @@
             var todate = document.getElementById('<%= toDate.ClientID %>').value;
 
             if (fromdate === "" || todate === "") {
-                swal("Please fill all details to proceed..!", "", "error");
+                swal("Please fill a date to proceed..!", "", "error");
                 return false;
             }
 

@@ -1,33 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebApplication1
 {
-    public partial class Fab_Driver_Transport : System.Web.UI.Page
+    public partial class Fab_Driver_Transport : Page
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                GenerateTransportSlip();
+                TransportSlip.Text = ""; 
             }
         }
 
-        protected void GenerateTransportSlip()
+        protected void btnSearchDate_Click(object sender, EventArgs e)
+        {
+            
+            string fromDateText = fromDate.Text;
+            string toDateText = toDate.Text;
+
+            DateTime fromDateValue, toDateValue;
+
+            
+            if (DateTime.TryParse(fromDateText, out fromDateValue) && DateTime.TryParse(toDateText, out toDateValue))
+            {
+            
+                fromDateSpan.InnerText = fromDateValue.ToString("dd-MMM-yyyy");
+                toDateSpan.InnerText = toDateValue.ToString("dd-MMM-yyyy");
+
+            
+                GenerateTransportSlip(fromDateValue, toDateValue);
+            }
+            else
+            {
+            
+                TransportSlip.Text = "<div class='alert alert-danger'>Invalid dates provided. Please try again.</div>";
+            }
+        }
+
+
+        protected void GenerateTransportSlip(DateTime fromDate, DateTime toDate)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT date, Exp_name, Exp_price FROM Fab_Expanse WHERE User_id = 20203";
+            
+                string query = "SELECT date, Exp_name, Exp_price FROM Fab_Expanse WHERE User_id = 20203 AND date >= @FromDate AND date <= @ToDate order by date Asc";
                 SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@FromDate", fromDate);
+                cmd.Parameters.AddWithValue("@ToDate", toDate);
+
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
@@ -43,7 +69,7 @@ namespace WebApplication1
 
                 decimal total = 0;
 
-                // Add rows dynamically from the database
+                
                 while (reader.Read())
                 {
                     DateTime date = Convert.ToDateTime(reader["date"]);
@@ -59,14 +85,19 @@ namespace WebApplication1
                     total += payment;
                 }
 
+                
                 TransportSlip.Text += "<tr>" +
                                       "<td colspan='2'><strong>TOTAL</strong></td>" +
                                       "<td>" + total.ToString("N0") + "</td>" +
                                       "</tr>";
 
                 TransportSlip.Text += "</tbody></table>";
+
+                
+                reader.Close();
             }
         }
 
+        
     }
 }
