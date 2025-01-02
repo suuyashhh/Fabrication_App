@@ -203,6 +203,13 @@
                         <img src="FabImage/TransportList.png" alt="Image 1" />
                         <h5>Transport List</h5>
                     </div>
+                </div> 
+                
+                <div class="col-4">
+                    <div class="box" onclick="window.location.href='Fab_Admin_SalaryHistory.aspx';" style="cursor: pointer;">
+                        <img src="FabImage/SalaryHistory.png" alt="Image 1" />
+                        <h5>Salary History List</h5>
+                    </div>
                 </div>
                
         </div>

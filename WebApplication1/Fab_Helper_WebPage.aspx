@@ -137,9 +137,9 @@
                 </div>
 
                 <div class="col-4">
-                    <div class="box" onclick="window.location.href='Fab_Helper_SalaryBill.aspx';" style="cursor: pointer;">
+                    <div class="box" onclick="window.location.href='Fab_Helper_SalaryHistory.aspx';" style="cursor: pointer;">
                         <img src="FabImage/MonthSalery.png" alt="Image 1" />
-                        <h5>Salary Bill</h5>
+                        <h5>Salary History</h5>
                     </div>
                 </div>
 

@@ -1,12 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Helper_Month_Atten.aspx.cs" Inherits="WebApplication1.Fab_Helper_Month_Atten" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Admin_History.aspx.cs" Inherits="WebApplication1.Fab_Admin_History" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Monthly Attendance Management</title>
+    <title>Admin Salary Slip History</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -62,31 +61,12 @@
         <div class="container-fluid">
             <!-- Header Section -->
             <div class="header d-flex align-items-center">
-                <img src="FabImage/MonthAttendanse.png" alt="Doctor Icon" height="50" class="me-2" />
-                <h1>Monthly Attendance Management</h1>
+                <img src="FabImage/SalaryHistory.png" alt="Doctor Icon" height="50" class="me-2" />
+                <h1>Admin Salary Slip History</h1>
             </div>
 
             <div class="content">
-                <!-- Date Selection Section -->
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-8 col-lg-6">
-                        <div class="card shadow-sm p-4">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="fromDate" class="form-label">From Date*</label>
-                                    <asp:TextBox ID="fromDate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="toDate" class="form-label">To Date*</label>
-                                    <asp:TextBox ID="toDate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="text-center mt-4">
-                                <asp:Button ID="btnSearchDatePE" OnClick="btnSearchDatePE_Click" OnClientClick="return valid()" Text="Search" CssClass="btn btn-submit" runat="server" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Salary Slip Section -->
                 <div class="row justify-content-center mt-5">
@@ -99,19 +79,26 @@
                                         <span>__________________</span><br />
                                     </div>
                                     <div class="col-md-4">
-                                        <strong>From Date:</strong> <span id="fromDateSpan">N/A</span><br />
-                                        <strong>To Date:</strong> <span id="toDateSpan">N/A</span>
+                                        <strong>From Date:</strong> <span id="fromDateSpan" runat="server"></span>
+                                        <br />
+                                        <strong>To Date:</strong> <span id="toDateSpan" runat="server"></span>
                                     </div>
-                                   
+                                    <div class="col-md-4 text-end">
+                                        <strong>Salary Date:</strong><br />
+                                        <span id="slipDaySpan" runat="server"></span>
+                                        <br />
+                                    </div>
+
+
                                 </div>
                             </div>
                             <div class="card-body text-center">
                                 <h5><strong>SALARY SLIP FOR THE MONTH OF -</strong></h5>
                             </div>
                             <div class="table-responsive">
-                             
 
-                                <asp:Repeater ID="rptAttendanceSummary" runat="server">
+
+                                <asp:Repeater ID="HistoryAttendanceSummary" runat="server">
                                     <HeaderTemplate>
                                         <table class="table table-bordered">
                                             <thead class="table-light">
@@ -120,6 +107,7 @@
                                                     <th>Days</th>
                                                     <th>Salary</th>
                                                     <th>Total Salary</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -127,42 +115,51 @@
                                     <ItemTemplate>
                                         <tr>
                                             <td>FULL DAY</td>
-                                            <td><%# Eval("FullDay_Count") %></td>
-                                            <td><%# Eval("User_salary") %></td>
-                                            <td><%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %></td>
+                                            <td><%# Eval("Full_Day") %></td>
+                                            <td><%# Eval("Full_Salary") %></td>
+                                            <td><%# Eval("Full_day_Total") %></td>
+                                            <td rowspan="5" class="text-center align-middle">
+                                                <asp:Label runat="server" ID="AShistory" Style="display: none" Text='<%# Eval("Slip_id") %>'></asp:Label>
+                                                <asp:LinkButton runat="server" ID="RepeterDelete"
+                                                    OnClientClick="return confirm('Do you want to delete this Item?')"
+                                                    OnClick="RepeterDelete_Click"
+                                                    Style="background-color: orange; color: white; padding: 10px; border-radius: 5px;">
+                                                <span class="fa fa-trash"></span> Delete
+                                            </asp:LinkButton>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>HALF DAY</td>
-                                            <td><%# Eval("HalfDay_Count") %></td>
-                                            <td><%# (Convert.ToDecimal(Eval("User_salary")) / 2) %></td>
-                                            <td><%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %></td>
+                                            <td><%# Eval("Half_Day") %></td>
+                                            <td><%# Eval("Half_Salary")%></td>
+                                            <td><%# Eval("Half_day_Total")%></td>
                                         </tr>
                                         <tr>
                                             <td>OFF DAY</td>
-                                            <td><%# Eval("OffDay_Count") %></td>
+                                            <td><%# Eval("Off_Day") %></td>
                                             <td>0</td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>ADVANCE</td>
                                             <td></td>
-                                            <td><%# Eval("TOTAL_ADVANCE") %></td>
-                                            <td><%# Eval("TOTAL_ADVANCE") %></td>
+                                            <td><%# Eval("Advance_Salary") %></td>
+                                            <td><%# Eval("Advance_Total") %></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"><strong>TOTAL</strong></td>
                                             <td>
-                                                <%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
-                     + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
-                     - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>
+                                                <%# Eval("Grand_Total") %>
                                             </td>
                                         </tr>
+
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         </tbody>
         </table>
                                     </FooterTemplate>
                                 </asp:Repeater>
+
 
 
 
@@ -179,36 +176,5 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        window.addEventListener('load', function () {
-            // Update From Date and To Date dynamically
-            const fromDate = document.getElementById('<%= fromDate.ClientID %>').value;
-            const toDate = document.getElementById('<%= toDate.ClientID %>').value;
-
-            document.getElementById('fromDateSpan').innerText = fromDate || 'N/A';
-            document.getElementById('toDateSpan').innerText = toDate || 'N/A';
-        });
-
-        function valid() {
-            const fromdate = document.getElementById('<%= fromDate.ClientID %>').value;
-            const todate = document.getElementById('<%= toDate.ClientID %>').value;
-
-            if (!fromdate || !todate) {
-                swal("Please fill all details to proceed..!", "", "error");
-                return false;
-            }
-
-            const fromDateObj = new Date(fromdate);
-            const toDateObj = new Date(todate);
-
-            if (fromDateObj > toDateObj) {
-                swal("From Date cannot be later than To Date!", "", "warning");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
 </body>
 </html>
-

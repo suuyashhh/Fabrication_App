@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class Fab_Helper_Month_Atten
+    public partial class Fab_Helper_History
     {
 
         /// <summary>
@@ -24,39 +24,39 @@ namespace WebApplication1
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// fromDate control.
+        /// fromDateSpan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fromDate;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fromDateSpan;
 
         /// <summary>
-        /// toDate control.
+        /// toDateSpan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox toDate;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl toDateSpan;
 
         /// <summary>
-        /// btnSearchDatePE control.
+        /// slipDaySpan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearchDatePE;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl slipDaySpan;
 
         /// <summary>
-        /// rptAttendanceSummary control.
+        /// HistoryAttendanceSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptAttendanceSummary;
+        protected global::System.Web.UI.WebControls.Repeater HistoryAttendanceSummary;
     }
 }

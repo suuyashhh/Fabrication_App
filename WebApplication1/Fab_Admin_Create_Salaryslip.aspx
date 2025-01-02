@@ -118,91 +118,80 @@
                             </div>
                             <div class="table-responsive">
 
-
                                 <asp:Repeater ID="rptAttendanceSummary" runat="server">
-                                    <HeaderTemplate>
-                                        <table class="table table-bordered">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Days</th>
-                                                    <th>Salary</th>
-                                                    <th>Total Salary</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td>FULL DAY</td>
-                                            <td id="fullDayCount_<%# Container.ItemIndex %>">
-                                                <%# Eval("FullDay_Count") %>
-                                            </td>
-                                            <td>
-                                                <input type="number" class="form-control salary-input"
-                                                    value="<%# Eval("User_salary") %>"
-                                                    data-item-index="<%# Container.ItemIndex %>"
-                                                    id="fullDaySalary_<%# Container.ItemIndex %>"
-                                                    oninput="calculateSalary(<%# Container.ItemIndex %>)" />
-                                            </td>
-                                            <td id="fullDayTotal_<%# Container.ItemIndex %>">
-                                                <%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>HALF DAY</td>
-                                            <td id="halfDayCount_<%# Container.ItemIndex %>">
-                                                <%# Eval("HalfDay_Count") %>
-                                            </td>
-                                            <td>
-                                                <input type="number" class="form-control salary-input"
-                                                    value="<%# (Convert.ToDecimal(Eval("User_salary")) / 2) %>"
-                                                    data-item-index="<%# Container.ItemIndex %>"
-                                                    id="halfDaySalary_<%# Container.ItemIndex %>"
-                                                    onchange="calculateSalary(<%# Container.ItemIndex %>)" />
-                                            </td>
-                                            <td id="halfDayTotal_<%# Container.ItemIndex %>">
-                                                <%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>OFF DAY</td>
-                                            <td id="offDayCount_<%# Container.ItemIndex %>">
-                                                <%# Eval("OffDay_Count") %>
-                                            </td>
-                                            <td>0
-                                            </td>
-                                            <td>0
-                                            </td>
-                                        </tr>
+    <HeaderTemplate>
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th></th>
+                    <th>Days</th>
+                    <th>Salary</th>
+                    <th>Total Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+    </HeaderTemplate>
+    <ItemTemplate>
+        <tr>
+            <td>FULL DAY</td>
+            <td>
+                <asp:Label ID="fullDayCount" runat="server" Text='<%# Eval("FullDay_Count") %>'></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="fullDaySalary" runat="server" CssClass="form-control salary-input"
+                    Text='<%# Eval("User_salary") %>'></asp:TextBox>
+            </td>
+            <td>
+                <asp:Label ID="fullDayTotal" runat="server" Text='<%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %>'></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>HALF DAY</td>
+            <td>
+                <asp:Label ID="halfDayCount" runat="server" Text='<%# Eval("HalfDay_Count") %>'></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="halfDaySalary" runat="server" CssClass="form-control salary-input"
+                    Text='<%# (Convert.ToDecimal(Eval("User_salary")) / 2) %>'></asp:TextBox>
+            </td>
+            <td>
+                <asp:Label ID="halfDayTotal" runat="server" Text='<%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %>'></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>OFF DAY</td>
+            <td>
+                <asp:Label ID="offDayCount" runat="server" Text='<%# Eval("OffDay_Count") %>'></asp:Label>
+            </td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>ADVANCE</td>
+            <td></td>
+            <td>
+                <asp:TextBox ID="advanceAmount" runat="server" CssClass="form-control advance-input"
+                    Text='<%# Eval("TOTAL_ADVANCE") %>'></asp:TextBox>
+            </td>
+            <td>
+                <asp:Label ID="advanceTotal" runat="server" Text='<%# Eval("TOTAL_ADVANCE") %>'></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><strong>TOTAL</strong></td>
+            <td>
+                <asp:Label ID="grandTotal" runat="server" Text='<%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
+                + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
+                - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>'></asp:Label>
+            </td>
+        </tr>
+    </ItemTemplate>
+    <FooterTemplate>
+        </tbody>
+       </table>
+    </FooterTemplate>
+</asp:Repeater>
 
-                                        <tr>
-                                            <td>ADVANCE</td>
-                                            <td></td>
-                                            <td>
-                                                <input type="number" class="form-control advance-input"
-                                                    value="<%# Eval("TOTAL_ADVANCE") %>"
-                                                    data-item-index="<%# Container.ItemIndex %>"
-                                                    id="advanceAmount_<%# Container.ItemIndex %>"
-                                                    onchange="calculateSalary(<%# Container.ItemIndex %>)" />
-                                            </td>
-                                            <td id="advanceTotal_<%# Container.ItemIndex %>">-<%# Eval("TOTAL_ADVANCE") %>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3"><strong>TOTAL</strong></td>
-                                            <td id="grandTotal_<%# Container.ItemIndex %>">
-                                                            <%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
-                                 + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
-                                 - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>
-                                            </td>
-                                        </tr>
-                                    </ItemTemplate>
-                                    <FooterTemplate>
-                                        </tbody>
-                                       </table>
-                                    </FooterTemplate>
-                                </asp:Repeater>
 
 
                             </div>
