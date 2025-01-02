@@ -213,6 +213,7 @@
                 </div>
                
         </div>
+            </div>
 
         <!-- Footer -->
         <footer class="footer">
