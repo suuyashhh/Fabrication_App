@@ -169,13 +169,13 @@
             <!-- Third row -->
             <div class="row row-spacing">
                 <div class="col-4">
-                    <div class="box" onclick="window.location.href='MonthlyPE.aspx';" style="cursor: pointer;">
+                    <div class="box" onclick="window.location.href='Fab_Admin_MonthlyPE.aspx';" style="cursor: pointer;">
                         <img src="assets/img/fiscal_13495984.png" alt="Image 1" />
                         <h5>Monthly Profit Expense</h5>
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="box" onclick="window.location.href='DatePE.aspx';" style="cursor: pointer;">
+                    <div class="box" onclick="window.location.href='Fab_Admin_DatePE.aspx';" style="cursor: pointer;">
                         <img src="assets/img/calendar_16118660.png" alt="Image 2" />
                         <h5>Days Profit Expense</h5>
                     </div>

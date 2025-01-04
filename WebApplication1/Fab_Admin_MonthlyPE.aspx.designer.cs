@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class MonthlyPE
+    public partial class Fab_Admin_MonthlyPE
     {
 
         /// <summary>

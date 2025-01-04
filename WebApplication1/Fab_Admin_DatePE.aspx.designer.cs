@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class DatePE
+    public partial class Fab_Admin_DatePE
     {
 
         /// <summary>
