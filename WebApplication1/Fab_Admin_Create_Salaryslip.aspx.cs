@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -206,6 +207,71 @@ namespace WebApplication1
             Response.Write("<script>alert('Salary slip saved successfully.');</script>");
         }
 
+
+
+        protected void CalculateSalary(object sender, EventArgs e)
+        {
+            TextBox salaryBox = sender as TextBox;
+            RepeaterItem item = salaryBox.NamingContainer as RepeaterItem;
+
+            if (item != null)
+            {
+                // Access controls in the current RepeaterItem
+                Label lblFullDayCount = item.FindControl("fullDayCount") as Label;
+                TextBox txtFullDaySalary = item.FindControl("fullDaySalary") as TextBox;
+                Label lblFullDayTotal = item.FindControl("fullDayTotal") as Label;
+
+                Label lblHalfDayCount = item.FindControl("halfDayCount") as Label;
+                TextBox txtHalfDaySalary = item.FindControl("halfDaySalary") as TextBox;
+                Label lblHalfDayTotal = item.FindControl("halfDayTotal") as Label;
+
+                TextBox txtAdvanceAmount = item.FindControl("advanceAmount") as TextBox;
+                Label lblAdvanceTotal = item.FindControl("advanceTotal") as Label;
+
+                Label lblGrandTotal = item.FindControl("grandTotal") as Label;
+
+                // Perform calculations
+                decimal fullDayCount = Convert.ToDecimal(lblFullDayCount.Text);
+                decimal fullDaySalary = Convert.ToDecimal(txtFullDaySalary.Text);
+                decimal fullDayTotal = fullDayCount * fullDaySalary;
+
+                decimal halfDayCount = Convert.ToDecimal(lblHalfDayCount.Text);
+                decimal halfDaySalary = Convert.ToDecimal(txtHalfDaySalary.Text);
+                decimal halfDayTotal = halfDayCount * halfDaySalary;
+
+                decimal advanceAmount = Convert.ToDecimal(txtAdvanceAmount.Text);
+                decimal advanceTotal = -advanceAmount;
+
+                decimal grandTotal = fullDayTotal + halfDayTotal + advanceTotal;
+
+                // Update UI
+                lblFullDayTotal.Text = fullDayTotal.ToString("F2");
+                lblHalfDayTotal.Text = halfDayTotal.ToString("F2");
+                lblAdvanceTotal.Text = advanceTotal.ToString("F2");
+                lblGrandTotal.Text = grandTotal.ToString("F2");
+            }
+        }
+
+
+
+        [WebMethod]
+        public static object CalculateSalary(int fullDayCount, decimal fullDaySalary, int halfDayCount, decimal halfDaySalary, decimal advanceAmount)
+        {
+            // Perform calculations
+            decimal fullDayTotal = fullDayCount * fullDaySalary;
+            decimal halfDayTotal = halfDayCount * halfDaySalary;
+            decimal advanceTotal = -advanceAmount;
+            decimal grandTotal = fullDayTotal + halfDayTotal + advanceTotal;
+
+            // Return results as an object
+            return new
+            {
+                FullDayTotal = fullDayTotal.ToString("F2"),
+                HalfDayTotal = halfDayTotal.ToString("F2"),
+                AdvanceTotal = advanceTotal.ToString("F2"),
+                GrandTotal = grandTotal.ToString("F2")
+            };
+        }
 
 
     }

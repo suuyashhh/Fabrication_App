@@ -11,6 +11,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600&display=swap" rel="stylesheet" />
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
     <!-- Sweet Alert -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css" rel="stylesheet" />
@@ -62,7 +65,7 @@
             <!-- Header Section -->
             <div class="header d-flex align-items-center">
                 <img src="FabImage/AdminCreateSalaySlip.png" alt="Doctor Icon" height="50" class="me-2" />
-                <h1>Monthly Attendance Management</h1>
+                <h1>Create Salary Slip</h1>
             </div>
 
             <div class="content">
@@ -118,7 +121,7 @@
                             </div>
                             <div class="table-responsive">
 
-                                <asp:Repeater ID="rptAttendanceSummary" runat="server">
+                               <asp:Repeater ID="rptAttendanceSummary" runat="server">
     <HeaderTemplate>
         <table class="table table-bordered">
             <thead class="table-light">
@@ -139,7 +142,7 @@
             </td>
             <td>
                 <asp:TextBox ID="fullDaySalary" runat="server" CssClass="form-control salary-input"
-                    Text='<%# Eval("User_salary") %>'></asp:TextBox>
+                    Text='<%# Eval("User_salary") %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="fullDay"></asp:TextBox>
             </td>
             <td>
                 <asp:Label ID="fullDayTotal" runat="server" Text='<%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %>'></asp:Label>
@@ -152,7 +155,7 @@
             </td>
             <td>
                 <asp:TextBox ID="halfDaySalary" runat="server" CssClass="form-control salary-input"
-                    Text='<%# (Convert.ToDecimal(Eval("User_salary")) / 2) %>'></asp:TextBox>
+                    Text='<%# (Convert.ToDecimal(Eval("User_salary")) / 2) %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="halfDay"></asp:TextBox>
             </td>
             <td>
                 <asp:Label ID="halfDayTotal" runat="server" Text='<%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %>'></asp:Label>
@@ -171,7 +174,7 @@
             <td></td>
             <td>
                 <asp:TextBox ID="advanceAmount" runat="server" CssClass="form-control advance-input"
-                    Text='<%# Eval("TOTAL_ADVANCE") %>'></asp:TextBox>
+                    Text='<%# Eval("TOTAL_ADVANCE") %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="advance"></asp:TextBox>
             </td>
             <td>
                 <asp:Label ID="advanceTotal" runat="server" Text='<%# Eval("TOTAL_ADVANCE") %>'></asp:Label>
@@ -194,6 +197,7 @@
 
 
 
+
                             </div>
                         </div>
                     </div>
@@ -208,43 +212,57 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 
+
     <script>
-        function calculateSalary(index) {
+        $(document).ready(function () {
+            $(".salary-input, .advance-input").on("input", function () {
+                const parentCard = $(this).closest(".card-body");
 
-            const fullDaySalary = parseFloat(document.getElementById(`fullDaySalary_${index}`).value) || 0;
-            const halfDaySalary = parseFloat(document.getElementById(`halfDaySalary_${index}`).value) || 0;
-            const advanceAmount = parseFloat(document.getElementById(`advanceAmount_${index}`).value) || 0;
+                // Fetch the required values
+                const fullDayCount = parseInt(parentCard.find("[id$=fullDayCount]").text()) || 0;
+                const halfDayCount = parseInt(parentCard.find("[id$=halfDayCount]").text()) || 0;
+                const fullDaySalary = parseFloat(parentCard.find("[id$=fullDaySalary]").val()) || 0;
+                const halfDaySalary = parseFloat(parentCard.find("[id$=halfDaySalary]").val()) || 0;
+                const advanceAmount = parseFloat(parentCard.find("[id$=advanceAmount]").val()) || 0;
 
-            const fullDayCount = parseFloat(document.getElementById(`fullDayCount_${index}`).innerText) || 0;
-            const halfDayCount = parseFloat(document.getElementById(`halfDayCount_${index}`).innerText) || 0;
+                // Calculate totals
+                const fullDayTotal = fullDayCount * fullDaySalary;
+                const halfDayTotal = halfDayCount * halfDaySalary;
+                const grandTotal = fullDayTotal + halfDayTotal - advanceAmount;
 
+                // Update the corresponding UI elements
+                parentCard.find("[id$=fullDayTotal]").text(fullDayTotal.toFixed(2));
+                parentCard.find("[id$=halfDayTotal]").text(halfDayTotal.toFixed(2));
+                parentCard.find("[id$=advanceTotal]").text(advanceAmount.toFixed(2));
+                parentCard.find("[id$=grandTotal]").text(grandTotal.toFixed(2));
 
-            const fullDayTotal = fullDayCount * fullDaySalary;
-            const halfDayTotal = halfDayCount * halfDaySalary;
-            const advanceTotal = -advanceAmount;
-            const grandTotal = fullDayTotal + halfDayTotal + advanceTotal;
-
-
-            document.getElementById(`fullDayTotal_${index}`).innerText = fullDayTotal.toFixed(0);
-            document.getElementById(`halfDayTotal_${index}`).innerText = halfDayTotal.toFixed(0);
-            document.getElementById(`advanceTotal_${index}`).innerText = advanceTotal.toFixed(0);
-            document.getElementById(`grandTotal_${index}`).innerText = grandTotal.toFixed(0);
-        }
-
-
-        function attachInputListeners() {
-            const inputs = document.querySelectorAll('.salary-input, .advance-input');
-            inputs.forEach(input => {
-                input.addEventListener('input', (event) => {
-                    const index = event.target.getAttribute('data-item-index');
-                    calculateSalary(index);
+                // AJAX call to server-side method
+                $.ajax({
+                    type: "POST",
+                    url: "Fab_Admin_Create_Salaryslip.aspx/CalculateSalary",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        fullDayCount: fullDayCount,
+                        fullDaySalary: fullDaySalary,
+                        halfDayCount: halfDayCount,
+                        halfDaySalary: halfDaySalary,
+                        advanceAmount: advanceAmount
+                    }),
+                    dataType: "json",
+                    success: function (response) {
+                        // Update the calculated values in the UI
+                        const data = response.d;
+                        parentDiv.find("#fullDayTotal").text(data.FullDayTotal.toFixed(2));
+                        parentDiv.find("#halfDayTotal").text(data.HalfDayTotal.toFixed(2));
+                        parentDiv.find("#advanceTotal").text(data.AdvanceTotal.toFixed(2));
+                        parentDiv.find("#grandTotal").text(data.GrandTotal.toFixed(2));
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX Error: " + status + " - " + error);
+                    }
                 });
             });
-        }
-
-        window.addEventListener('DOMContentLoaded', attachInputListeners);
-
-
+        });
 
     </script>
 
