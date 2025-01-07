@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class SpecificRecords
+    public partial class Fab_Admin_SpecificRecords
     {
 
         /// <summary>
@@ -87,48 +87,66 @@ namespace WebApplication1
         protected global::System.Web.UI.WebControls.GridView gridBill;
 
         /// <summary>
-        /// lblGetTotalFeedOtherFeed control.
+        /// lblGetTotalGoodExpance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGetTotalFeedOtherFeed;
+        protected global::System.Web.UI.WebControls.Label lblGetTotalGoodExpance;
 
         /// <summary>
-        /// GridFeedOtherFeed control.
+        /// GridGoodExpance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridFeedOtherFeed;
+        protected global::System.Web.UI.WebControls.GridView GridGoodExpance;
 
         /// <summary>
-        /// lblGetTotalDocMedi control.
+        /// lblgetTransport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGetTotalDocMedi;
+        protected global::System.Web.UI.WebControls.Label lblgetTransport;
 
         /// <summary>
-        /// GridDocMedi control.
+        /// GridTransport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridDocMedi;
+        protected global::System.Web.UI.WebControls.GridView GridTransport;
 
         /// <summary>
-        /// gridAllRecords control.
+        /// GridViewAttendance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridAllRecords;
+        protected global::System.Web.UI.WebControls.GridView GridViewAttendance;
+
+        /// <summary>
+        /// lblGetTotalSalarySlip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGetTotalSalarySlip;
+
+        /// <summary>
+        /// GridSalarySlip control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridSalarySlip;
     }
 }

@@ -48,22 +48,52 @@ namespace WebApplication1
 
         protected void gridAttendance_RowEditing(object sender, GridViewEditEventArgs e)
         {
-
+            gridAttendance.EditIndex = e.NewEditIndex;
+            gridAttendance.DataSource = GvAttendance();
+            gridAttendance.DataBind();
         }
 
         protected void gridAttendance_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-
+            gridAttendance.EditIndex = -1;
+            gridAttendance.DataSource = GvAttendance();
+            gridAttendance.DataBind();
         }
 
         protected void gridAttendance_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            GridViewRow row = gridAttendance.Rows[e.RowIndex];
+            string H_id = gridAttendance.DataKeys[e.RowIndex].Value.ToString();
+            string User_day = ((TextBox)row.FindControl("txtday")).Text;
 
+            SqlCommand cmd = new SqlCommand("UPDATE Fab_Helper_Att SET User_day = @User_day WHERE H_id = @H_id", con);
+            cmd.Parameters.AddWithValue("@User_day", User_day);
+            cmd.Parameters.AddWithValue("@H_id", H_id);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            gridAttendance.EditIndex = -1;
+            gridAttendance.DataSource = GvAttendance();
+            gridAttendance.DataBind();
         }
 
         protected void gridAttendance_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            string H_id = gridAttendance.DataKeys[e.RowIndex].Value.ToString();
+            SqlCommand cmd = new SqlCommand("DELETE FROM Fab_Helper_Att WHERE H_id = @H_id", con);
+            cmd.Parameters.AddWithValue("@H_id", H_id);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+            gridAttendance.DataSource = GvAttendance();
+            gridAttendance.DataBind();
 
         }
+
+       
+
     }
 }

@@ -125,9 +125,7 @@
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblDate" Text='<%# Convert.ToDateTime(Eval("date")).ToString("hh:mm tt") %>'></asp:Label>
                                         </ItemTemplate>
-                                        <EditItemTemplate>
-                                            <asp:TextBox runat="server" ID="txtDate" Text='<%# Convert.ToDateTime(Eval("date")).ToString("dd-MMM-yyyy hh:mm tt") %>'></asp:TextBox>
-                                        </EditItemTemplate>
+                                      
                                     </asp:TemplateField>
 
                                     <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowDeleteButton="true" />

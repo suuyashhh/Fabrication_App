@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fa_Admin_SpecificRecords.aspx.cs" Inherits="WebApplication1.SpecificRecords" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Admin_SpecificRecords.aspx.cs" Inherits="WebApplication1.Fab_Admin_SpecificRecords" %>
+
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -159,9 +160,7 @@
         </div>
 
         <div class="content">
-
             <div class="row justify-content-center">
-
                 <div class="col-md-8 col-lg-6">
                     <div class="form-group row">
                         <div class="col-12 col-md-6">
@@ -174,19 +173,16 @@
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <label for="ddlRecordType" class="form-label">Select Record Type</label>
                         <asp:DropDownList ID="ddlRecordType" runat="server" Style="padding: 10px!important; margin-left: -10px;" CssClass="form-control">
-                            <asp:ListItem Text="Bill" Value="bill"></asp:ListItem>
-                            <asp:ListItem Text="Feed" Value="Feeds"></asp:ListItem>
-                            <asp:ListItem Text="Other Feed" Value="OtherFeeds"></asp:ListItem>
-                            <asp:ListItem Text="Doctor" Value="doctor"></asp:ListItem>
-                            <asp:ListItem Text="Medicine" Value="medicine"></asp:ListItem>
-                            <asp:ListItem Text="All" Value="all"></asp:ListItem>
+                            <asp:ListItem Text="BillProfit" Value="Fab_Profit"></asp:ListItem>
+                            <asp:ListItem Text="Goods Expanse" Value="Fab_Expanse"></asp:ListItem>
+                            <asp:ListItem Text="Transport" Value="Transport"></asp:ListItem>
+                            <asp:ListItem Text="Salary Slip" Value="Salary_Slip"></asp:ListItem>
+                            <asp:ListItem Text="Helper Attendance" Value="HelperAttendance"></asp:ListItem>
                         </asp:DropDownList>
                     </div>
-
 
                     <div class="form-group row justify-content-center">
                         <div class="col-6">
@@ -206,63 +202,54 @@
         <div class="table-responsive">
             <div class="container-fluid" style="margin-top: 70px;">
                 <asp:Label ID="lblGetTotalBill" runat="server" Text="Total Bill: 0" Visible="true" CssClass="total-price" />
-                <asp:GridView runat="server" ID="gridBill" DataKeyNames="bill_id" AutoGenerateColumns="false" OnRowEditing="gridBill_RowEditing" OnRowCancelingEdit="gridBill_RowCancelingEdit" OnRowUpdating="gridBill_RowUpdating" OnRowDeleting="gridBill_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
+                <asp:GridView runat="server" ID="gridBill" DataKeyNames="Pro_id" AutoGenerateColumns="false" OnRowEditing="gridBill_RowEditing" OnRowCancelingEdit="gridBill_RowCancelingEdit" OnRowUpdating="gridBill_RowUpdating" OnRowDeleting="gridBill_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
                     <Columns>
                         <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>
-                        <asp:TemplateField HeaderText="Animal:">
+                        <asp:TemplateField HeaderText="Name:">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lblAT" Text='<%# Eval("animal_type") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lblAT" Text='<%# Eval("Pro_name") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox runat="server" ID="txtAT" Text='<%# Eval("animal_type") %>'></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtAT" Text='<%# Eval("Pro_name") %>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Price:">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lblprice" Text='<%# Eval("price","{0:N0}") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lblprice" Text='<%# Eval("Pro_price","{0:N0}") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox runat="server" ID="txtprice" Text='<%# Eval("price") %>'></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtprice" Text='<%# Eval("Pro_price") %>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
                         <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="190" />
                     </Columns>
                 </asp:GridView>
-
             </div>
         </div>
 
-
-        <!-- GridView to display FEED And OTHERFEED the results -->
+        <!-- GridView to display Goods Expanse the results -->
         <div class="table-responsive">
             <div class="container-fluid" style="margin-top: 70px;">
-                <asp:Label ID="lblGetTotalFeedOtherFeed" runat="server" Text="Total Feed/Other Feed: 0" Visible="true" CssClass="total-price" />
-                <asp:GridView runat="server" ID="GridFeedOtherFeed" DataKeyNames="expense_id" AutoGenerateColumns="false" OnRowEditing="GridFeedOtherFeed_RowEditing" OnRowCancelingEdit="GridFeedOtherFeed_RowCancelingEdit" OnRowUpdating="GridFeedOtherFeed_RowUpdating" OnRowDeleting="GridFeedOtherFeed_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
+                <asp:Label ID="lblGetTotalGoodExpance" runat="server" Text="Total Goods Expance: 0" Visible="true" CssClass="total-price" />
+                <asp:GridView runat="server" ID="GridGoodExpance" DataKeyNames="Exp_id" AutoGenerateColumns="false" OnRowEditing="GridGoodExpance_RowEditing" OnRowCancelingEdit="GridGoodExpance_RowCancelingEdit" OnRowUpdating="GridGoodExpance_RowUpdating" OnRowDeleting="GridGoodExpance_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
                     <Columns>
                         <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>
-                        <asp:TemplateField HeaderText="Feed Name:">
+                        <asp:TemplateField HeaderText="Goods Name:">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lblFeedN" Text='<%# Eval("feed_name") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lblFeedN" Text='<%# Eval("Exp_name") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox runat="server" ID="txtFeedN" Text='<%# Eval("feed_name") %>'></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtFeedN" Text='<%# Eval("Exp_name") %>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Quantity:">
-                            <ItemTemplate>
-                                <asp:Label runat="server" ID="lblQty" Text='<%# Eval("quantity") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox runat="server" ID="txtQty" Text='<%# Eval("quantity") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Price:">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lblOFprice" Text='<%# Eval("price","{0:N0}") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lblOFprice" Text='<%# Eval("Exp_price","{0:N0}") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox runat="server" ID="txtOFprice" Text='<%# Eval("price") %>'></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtOFprice" Text='<%# Eval("Exp_price") %>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
@@ -273,67 +260,91 @@
             </div>
         </div>
 
-
-        <!-- GridView to display Doctor And MEDICINE the results -->
+        <!-- GridView to display Transport the results -->
         <div class="table-responsive">
             <div class="container-fluid" style="margin: 70px 0px;">
-                <asp:Label ID="lblGetTotalDocMedi" runat="server" Text="Total Doctor/Medicine: 0" Visible="true" CssClass="total-price" />
-                <asp:GridView runat="server" ID="GridDocMedi" DataKeyNames="expense_id" AutoGenerateColumns="false" OnRowEditing="GridDocMedi_RowEditing" OnRowCancelingEdit="GridDocMedi_RowCancelingEdit" OnRowUpdating="GridDocMedi_RowUpdating" OnRowDeleting="GridDocMedi_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
+                <asp:Label ID="lblgetTransport" runat="server" Text="Total Transport List: 0" Visible="true" CssClass="total-price" />
+                <asp:GridView runat="server" ID="GridTransport" DataKeyNames="Exp_id" AutoGenerateColumns="false" OnRowEditing="GridTransport_RowEditing" OnRowCancelingEdit="GridTransport_RowCancelingEdit" OnRowUpdating="GridTransport_RowUpdating" OnRowDeleting="GridTransport_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
                     <Columns>
-                        <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy }"></asp:BoundField>
-                        <asp:TemplateField HeaderText="Animal Name:">
+                        <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>
+                        <asp:TemplateField HeaderText="Place Name:">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lblAnimalN" Text='<%# Eval("animal_name") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lblTranNAme" Text='<%# Eval("Exp_name") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox runat="server" ID="txtAnimalN" Text='<%# Eval("animal_name") %>'></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtTranName" Text='<%# Eval("Exp_name") %>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Reason:">
-                            <ItemTemplate>
-                                <asp:Label runat="server" ID="lblRsn" Text='<%# Eval("reason") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox runat="server" ID="txtRsn" Text='<%# Eval("reason") %>'></asp:TextBox>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Price:">
                             <ItemTemplate>
-                                <asp:Label runat="server" ID="lblDMprice" Text='<%# Eval("price","{0:N0}") %>'></asp:Label>
+                                <asp:Label runat="server" ID="lblTranPrice" Text='<%# Eval("Exp_price","{0:N0}") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox runat="server" ID="txtDMprice" Text='<%# Eval("price")%>'></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtTranPrice" Text='<%# Eval("Exp_price") %>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
 
                         <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="190" />
                     </Columns>
                 </asp:GridView>
-
             </div>
         </div>
 
 
-
-        <!-- GridView to display All Records the results -->
-        <div class="table-responsive" style="margin-bottom: 100px;">
-            <div class="container-fluid">
-                <asp:GridView ID="gridAllRecords" runat="server" AutoGenerateColumns="False" Visible="False" CssClass="table table-striped table-bordered " Style="text-align: center;">
+        <!-- GridView to display Helper Attendance the results -->
+        <div class="table-responsive">
+            <div class="container-fluid" style="margin: 70px 0px;">
+                
+                <asp:GridView runat="server" ID="GridViewAttendance" DataKeyNames="H_id" AutoGenerateColumns="false" OnRowEditing="GridViewAttendance_RowEditing" OnRowCancelingEdit="GridViewAttendance_RowCancelingEdit" OnRowUpdating="GridViewAttendance_RowUpdating" OnRowDeleting="GridViewAttendance_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
                     <Columns>
-                        <asp:BoundField DataField="date" HeaderText="Date" DataFormatString="{0:dd-MMM-yyyy}" />
-                        <asp:BoundField DataField="record_name" HeaderText="Record Name" />
-                        <asp:BoundField DataField="price" HeaderText="Price" DataFormatString="{0:N0}" />
+                        <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" ReadOnly="true" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>
+                        <asp:TemplateField HeaderText="Helper Name:">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblhelperName" Text='<%# Eval("User_name") %>'></asp:Label>
+                            </ItemTemplate>                           
+                        </asp:TemplateField>
 
+                        <asp:TemplateField HeaderText="Work day:">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblhelperDay" Text='<%# Eval("User_day") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox runat="server" ID="txtahelperDay" Text='<%# Eval("User_day") %>'></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:CommandField ButtonType="Button" ShowEditButton="true" ShowDeleteButton="true" ItemStyle-Width="190" />
                     </Columns>
                 </asp:GridView>
             </div>
         </div>
 
 
+
+        <!-- GridView to display SalarySlip the results -->
+        <div class="table-responsive">
+            <div class="container-fluid" style="margin: 70px 0px;">
+                <asp:Label ID="lblGetTotalSalarySlip" runat="server" Text="Total Doctor/Medicine: 0" Visible="true" CssClass="total-price" />
+                <asp:GridView runat="server" ID="GridSalarySlip" DataKeyNames="User_id" AutoGenerateColumns="false" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
+                    <Columns>
+                        <asp:BoundField DataField="Slip_Day" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy }"></asp:BoundField>
+                        <asp:TemplateField HeaderText="Helper Name:">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblAnimalN" Text='<%# Eval("User_name") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Salary:">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblDMprice" Text='<%# Eval("Grand_Total","{0:N0}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </div>
     </form>
-
-
-
 
     <script>
         function valid() {
@@ -354,7 +365,6 @@
                 swal("From Date cannot be later than To Date!", "", "warning");
                 return false;
             }
-
 
             return true;
         }
@@ -391,7 +401,5 @@
         });
     </script>
 
-
 </body>
 </html>
-

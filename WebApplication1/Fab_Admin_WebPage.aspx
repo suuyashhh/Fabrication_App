@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="box" onclick="window.location.href='SpecificRecords.aspx';" style="cursor: pointer;">
+                    <div class="box" onclick="window.location.href='Fab_Admin_SpecificRecords.aspx';" style="cursor: pointer;">
                         <img src="assets/img/target_10772314.png" alt="Image 3" />
                         <h5>Specific Record</h5>
                     </div>
