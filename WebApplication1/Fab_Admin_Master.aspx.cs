@@ -16,6 +16,10 @@ namespace WebApplication1
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["AdminId"] == null)
+            {
+                Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Admin_Master");
+            }
 
             if (!IsPostBack)
             {
@@ -131,20 +135,14 @@ namespace WebApplication1
             int expenseId = Convert.ToInt32(gridAdvance.DataKeys[e.RowIndex].Value);
 
             string updateQuery = @"
-        UPDATE FE
-        SET FE.date = @ExpenseDate,
-            FE.User_advance = @AdvanceMoney,
-            FE.User_id = (SELECT User_id FROM Fab_Users WHERE User_name = @UserName)
-        FROM Fab_Expanse FE
-        WHERE FE.Exp_id = @ExpenseId";
+        UPDATE Fab_Expanse set User_advance = @AdvanceMoney
+        WHERE Exp_id = @ExpenseId";
 
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(updateQuery, con))
                 {
-                    cmd.Parameters.AddWithValue("@ExpenseDate", DateTime.ParseExact(expenseDate, "dd-MMM-yyyy", null));
                     cmd.Parameters.AddWithValue("@AdvanceMoney", decimal.Parse(advanceMoney));
-                    cmd.Parameters.AddWithValue("@UserName", userName);
                     cmd.Parameters.AddWithValue("@ExpenseId", expenseId);
 
                     con.Open();

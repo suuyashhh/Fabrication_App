@@ -207,7 +207,7 @@
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
 
-                        <asp:Button ID="btnLogin" CssClass="btn btn-primary w-100" runat="server" Text="Login"  />
+                        <asp:Button ID="btnLogin" OnClick="btnLogin_Click" CssClass="btn btn-primary w-100" runat="server" Text="Login"  />
                     </asp:Panel>
 
                     <p class="small mb-0 mt-3 text-center">Don't have an account? <a href="Registration.aspx" style="color: green; font-family: 'saira';">Create an account</a></p>

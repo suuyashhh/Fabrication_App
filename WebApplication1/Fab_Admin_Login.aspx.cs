@@ -15,7 +15,16 @@ namespace WebApplication1
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Check if there is already a login cookie
+            if (Session["AdminId"] == null && Request.Cookies["AdminAuth"] != null)
+            {
+                // Restore session from the cookie
+                HttpCookie cookie = Request.Cookies["AdminAuth"];
+                Session["AdminId"] = cookie["AdminId"];
 
+                // Redirect to home page
+                Response.Redirect("Fabrication_Admin.aspx");
+            }   
         }
 
         protected void btnbutton_Click(object sender, EventArgs e)
@@ -27,32 +36,39 @@ namespace WebApplication1
             sqlCommand.Parameters.AddWithValue("@pass", txtpass.Text);
             con.Open();
             SqlDataReader reader = sqlCommand.ExecuteReader();
+
             if (reader.HasRows)
             {
                 reader.Read();
-                Session["user"] = reader.GetValue(1);
+                Session["AdminId"] = reader.GetValue(1);
+
+                // Create a persistent cookie
+                HttpCookie AdminCookie = new HttpCookie("AdminAuth");
+                AdminCookie["AdminId"] = reader.GetValue(1).ToString();
+                AdminCookie.Expires = DateTime.Now.AddDays(30); // Cookie valid for 30 days
+                Response.Cookies.Add(AdminCookie);
+
+                // Clear the input fields
                 txtcontact.Text = "";
                 txtpass.Text = "";
+
+                // Redirect to the corresponding page
                 if (Request.QueryString["type"] != null)
                 {
-                    if (Request.QueryString["type"] == "access")
-                    {
-                        Response.Redirect("Registrations.aspx");
-                        Response.Redirect("AdminRegistration.aspx");
-                        Response.Redirect("ContactAmin.aspx");
-                    }
+                    string type = Request.QueryString["type"];
+                    Response.Redirect($"{type}.aspx");
                 }
                 else
                 {
-                    Response.Redirect("Fa_Admin_WebPage.aspx");
-
+                    Response.Redirect("Fabrication_Admin.aspx");
                 }
-
             }
             else
             {
                 this.ClientScript.RegisterStartupScript(this.GetType(), "SweetAlert", "swal('Invalid Login..!','','error');", true);
             }
+
+            con.Close();
         }
     }
 }

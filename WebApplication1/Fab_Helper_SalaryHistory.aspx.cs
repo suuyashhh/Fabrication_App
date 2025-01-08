@@ -15,6 +15,10 @@ namespace WebApplication1
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["HelperId"] == null)
+            {
+                Response.Redirect("Fab_Helper_Login.aspx?type=Fab_Helper_SalaryHistory");
+            }
             if (!IsPostBack)
             {
                 gridhelpSalaryHistory.DataSource = HelperSalary();
@@ -27,7 +31,8 @@ namespace WebApplication1
         {
             con.Close();
 
-            SqlCommand cmd = new SqlCommand("select Slip_id,User_id,Slip_Day from Salary_Slip where User_id = 1 order by Slip_Day Desc ", con);
+            SqlCommand cmd = new SqlCommand("select Slip_id,User_id,Slip_Day from Salary_Slip where User_id = @HId order by Slip_Day Desc ", con);
+            cmd.Parameters.AddWithValue("@HId", Session["HelperId"]);
             con.Open();
             DataSet ds = new DataSet();
             SqlDataAdapter sdr = new SqlDataAdapter(cmd);

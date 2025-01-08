@@ -125,6 +125,18 @@
                 }
             </script>
 
+            <script type="text/javascript">
+
+                window.onpopstate = function (event) {
+                    window.location.href = 'Fab_Admin_Login.aspx';
+                };
+
+                window.onload = function () {
+                    if (history.state === null) {
+                        history.pushState({}, 'Fab_Admin_Login', window.location.href);
+                    }
+                };
+            </script>
 
         </div>
     </form>

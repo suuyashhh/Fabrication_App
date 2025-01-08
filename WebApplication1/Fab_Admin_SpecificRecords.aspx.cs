@@ -15,10 +15,10 @@ namespace WebApplication1
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["userId"] == null)
-            //{
-            //    Response.Redirect("Login.aspx?type=SpecialRecords");
-            //}
+            if (Session["AdminId"] == null)
+            {
+                Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Admin_SpecificRecords");
+            }
 
             if (!IsPostBack)
             {

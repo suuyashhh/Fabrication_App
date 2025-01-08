@@ -15,7 +15,10 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["AdminId"] == null)
+            {
+                Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Admin_DatePE");
+            }
         }
 
         protected void btnSearchDatePE_Click(object sender, EventArgs e)

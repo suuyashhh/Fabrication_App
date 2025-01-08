@@ -96,6 +96,7 @@
             margin: 0;
             margin-top: 20px;
         }
+
             .form-control:focus {
                 border-color: #10a37f;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -123,9 +124,9 @@
             cursor: pointer;
         }
 
-        .btn-submit:hover {
-            background-color: #0056b3;
-        }
+            .btn-submit:hover {
+                background-color: #0056b3;
+            }
     </style>
 </head>
 <body>
@@ -146,7 +147,7 @@
                             <asp:TextBox ID="ProfitDate" CssClass="form-control form-control-lg" runat="server" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="form-group">
-                            <label for="ProfitName" class="form-label">Client Name*</label>                            
+                            <label for="ProfitName" class="form-label">Client Name*</label>
                             <asp:TextBox ID="ProfitName" CssClass="form-control form-control-lg" runat="server"></asp:TextBox>
                         </div>
 

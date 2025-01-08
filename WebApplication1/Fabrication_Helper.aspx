@@ -113,7 +113,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto"></ul>
-                <asp:Button ID="logoutButton" runat="server" Text="Logout" CssClass="btn btn-primary my-2 my-sm-0" />
+                <asp:Button ID="logoutButton" OnClick="logoutButton_Click" runat="server" Text="Logout" CssClass="btn btn-primary my-2 my-sm-0" />
 
 
             </div>

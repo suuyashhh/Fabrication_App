@@ -15,6 +15,10 @@ namespace WebApplication1
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["AdminId"]== null)
+            {
+                Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Admin_Attendance");
+            }
             if (!IsPostBack)
             {
                 lblDate.Text = DateTime.Now.ToString("dd-MMM-yyyy");

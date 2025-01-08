@@ -15,10 +15,19 @@ namespace WebApplication1
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["HelperId"]== null)
+            {
+                Response.Redirect("Fab_Helper_Login.aspx?type=Fab_Helper_History");
+            }
             if (Request.QueryString["id"] != null)
             {
                 SalaryHistory();
                 HistoryAttendanceSummary.DataBind();
+            }
+
+            if (Session["HelperName"] != null)
+            {
+                LblName.Text = Session["HelperName"].ToString();
             }
         }
 

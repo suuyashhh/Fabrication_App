@@ -5,26 +5,21 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feeds Management</title>
+    <title>Expanse Management</title>
 
-    <!-- Vendor CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600&display=swap" rel="stylesheet" />
 
-
-    <!-- Sweet Alert -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css" rel="stylesheet" type="text/css" />
 
 
-    <!-- Custom CSS -->
     <style>
         body, html {
             margin: 0;
             padding: 0;
             font-family: "Saira", sans-serif;
-            height: 100%;
         }
 
         .header {
@@ -39,7 +34,6 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            width: 100%;
         }
 
             .header img {
@@ -54,11 +48,7 @@
             }
 
         .content {
-            padding: 100px 20px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: calc(100vh - 100px);
+            padding: 80px 20px 20px;
         }
 
 
@@ -108,7 +98,7 @@
         }
 
             .form-control:focus {
-                border-color: black;
+                border-color: #10a37f;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
                 outline: none;
             }
@@ -137,18 +127,20 @@
             .btn-submit:hover {
                 background-color: #0056b3;
             }
+
+        textarea.form-control {
+            padding-top: 10px;
+        }
     </style>
 </head>
 <body>
     <form id="form2" runat="server">
         <div class="container-fluid">
 
-            <!-- Header with fixed position -->
             <div class="header">
                 <img src="FabImage/Expanse.png" alt="Feed Icon" />
                 <h1>Expanse Management</h1>
             </div>
-
 
             <div class="content">
                 <div class="row justify-content-center align-items-center w-100">
@@ -166,7 +158,7 @@
                             <asp:TextBox ID="Eprice" CssClass="form-control form-control-lg" runat="server" TextMode="Number"></asp:TextBox>
                         </div>
                         <div class="form-group">
-                            <asp:Button ID="btnSubmitAExpanse" OnClick="btnSubmitAExpanse_Click"  OnClientClick="return valid()" Text="Submit" CssClass="btn-submit" runat="server" />
+                            <asp:Button ID="btnSubmitAExpanse" OnClick="btnSubmitAExpanse_Click" OnClientClick="return valid()" Text="Submit" CssClass="btn-submit" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -174,6 +166,15 @@
         </div>
     </form>
 
+    <script>
+        function checkInput(input) {
+            if (input.value.trim() !== '') {
+                input.setAttribute('data-filled', 'true');
+            } else {
+                input.removeAttribute('data-filled');
+            }
+        }
+    </script>
 
     <script>
         function valid() {
@@ -190,7 +191,7 @@
         }
     </script>
 
-    <!-- Back button handling script -->
+
     <script type="text/javascript">
         window.onpopstate = function (event) {
             window.location.href = 'Fabrication_Admin.aspx';
@@ -198,7 +199,7 @@
 
         window.onload = function () {
             if (history.state === null) {
-                history.pushState({}, 'AExpanse', window.location.href);
+                history.pushState({}, 'Bill', window.location.href);
             }
 
             const img = document.querySelector('.header img');

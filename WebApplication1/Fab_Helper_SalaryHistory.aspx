@@ -152,13 +152,13 @@
                 
              </asp:TemplateField>
 
-             <asp:TemplateField HeaderText="Name:">
+             <%--<asp:TemplateField HeaderText="Name:">
                  <ItemTemplate>
                      <asp:Label runat="server" ID="lblname" Text='<%# Eval("User_id") %>'></asp:Label>
                  </ItemTemplate>
-             </asp:TemplateField>
+             </asp:TemplateField>--%>
 
-             <asp:TemplateField HeaderText="Advance Money:">
+             <asp:TemplateField HeaderText="Salary Slip:">
                  <ItemTemplate>
                       <a class="btn btn-primary" href='Fab_Helper_History.aspx?id=<%# Eval("Slip_id")%>'>View Details</a>                     
                  </ItemTemplate>                

@@ -14,6 +14,10 @@ namespace WebApplication1
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["HelperId"] == null)
+            {
+                Response.Redirect("Fab_Helper_Login.aspx?type=Fab_Helper_Att");
+            }
 
             if (!IsPostBack)
             {
@@ -25,8 +29,9 @@ namespace WebApplication1
         protected void btnFullDay_Click(object sender, EventArgs e)
         {
             con.Close();
-            SqlCommand cmd = new SqlCommand("insert into Fab_Helper_Att (User_day,date) values (@userDay,@dt)", con);
-
+            SqlCommand cmd = new SqlCommand("insert into Fab_Helper_Att (User_id,User_name,User_day,date) values (@UserId,@UserName,@userDay,@dt)", con);
+            cmd.Parameters.AddWithValue("@UserId", Session["HelperId"]);
+            cmd.Parameters.AddWithValue("@UserName", Session["HelperName"]);
             cmd.Parameters.AddWithValue("@userDay", "FULL DAY");
             cmd.Parameters.AddWithValue("@dt", DateTime.Now);
 
@@ -38,8 +43,9 @@ namespace WebApplication1
         {
             con.Close();
 
-            SqlCommand cmd = new SqlCommand("insert into Fab_Helper_Att (User_day,date)  Values (@userDay,@dt) ", con);
-
+            SqlCommand cmd = new SqlCommand("insert into Fab_Helper_Att (User_id,User_name,User_day,date) values (@UserId,@UserName,@userDay,@dt)", con);
+            cmd.Parameters.AddWithValue("@UserId", Session["HelperId"]);
+            cmd.Parameters.AddWithValue("@UserName", Session["HelperName"]);
             cmd.Parameters.AddWithValue("@userDay", "HALF DAY");
             cmd.Parameters.AddWithValue("@dt",DateTime.Now);
 
@@ -51,8 +57,9 @@ namespace WebApplication1
         {
             con.Close();
 
-            SqlCommand cmd = new SqlCommand("insert into Fab_Helper_Att (User_day,date) values (@userDay,@dt) ", con);
-
+            SqlCommand cmd = new SqlCommand("insert into Fab_Helper_Att (User_id,User_name,User_day,date) values (@UserId,@UserName,@userDay,@dt)", con);
+            cmd.Parameters.AddWithValue("@UserId", Session["HelperId"]);
+            cmd.Parameters.AddWithValue("@UserName", Session["HelperName"]);
             cmd.Parameters.AddWithValue("@userDay","OFF DAY");
             cmd.Parameters.AddWithValue("@dt", DateTime.Now);
 

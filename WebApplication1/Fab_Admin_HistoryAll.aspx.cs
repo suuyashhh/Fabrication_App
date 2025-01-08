@@ -16,10 +16,10 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["userId"] == null)
-            //{
-            //    Response.Redirect("Login.aspx?type=History");
-            //}
+            if (Session["AdminId"] == null)
+            {
+                Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Admin_HistoryAll");
+            }
             if (!IsPostBack)
             {
                 LoadHistoryRecords();

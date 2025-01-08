@@ -169,9 +169,7 @@
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblDate" Text='<%# Convert.ToDateTime(Eval("ExpenseDate")).ToString("dd-MMM-yyyy") %>'></asp:Label>
                                     </ItemTemplate>
-                                    <EditItemTemplate>
-                                        <asp:TextBox runat="server" ID="txtDate" Text='<%# Convert.ToDateTime(Eval("ExpenseDate")).ToString("dd-MMM-yyyy") %>'></asp:TextBox>
-                                    </EditItemTemplate>
+                                  
                                 </asp:TemplateField>
 
                                 <asp:TemplateField HeaderText="Name:">

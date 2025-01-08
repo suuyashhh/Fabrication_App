@@ -113,7 +113,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto"></ul>
-                <asp:Button ID="logoutButton" runat="server" Text="Logout"  CssClass="btn btn-primary my-2 my-sm-0" />
+                <asp:Button ID="logoutButton" OnClick="logoutButton_Click" runat="server" Text="Logout"  CssClass="btn btn-primary my-2 my-sm-0" />
 
 
 
@@ -192,7 +192,7 @@
             <!-- Fourth row -->
             <div class="row row-spacing">
                 <div class="col-4">
-                    <div class="box" onclick="window.location.href='History.aspx';" style="cursor: pointer;">
+                    <div class="box" onclick="window.location.href='Fab_Admin_HistoryAll.aspx';" style="cursor: pointer;">
                         <img src="assets/img/HistoryRecord.png" alt="Image 1" />
                         <h5>History</h5>
                     </div>

@@ -77,7 +77,7 @@
                                 <div class="row g-3">
                                     <div class="col-md-4">
                                         <strong>HELPER NAME:</strong><br />
-                                        <span>__________________</span><br />
+                                        <strong><asp:Label runat="server" ID="LblName"></asp:Label></strong><br />
                                     </div>
                                     <div class="col-md-4">
                                         <strong>From Date:</strong> <span id="fromDateSpan" runat="server"></span>
@@ -135,7 +135,7 @@
                                             <td>ADVANCE</td>
                                             <td></td>
                                             <td><%# Eval("Advance_Salary") %></td>
-                                            <td><%# Eval("Advance_Total") %></td>
+                                            <td>-<%# Eval("Advance_Total") %></td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"><strong>TOTAL</strong></td>

@@ -11,6 +11,11 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["AdminId"] == null)
+            {
+                Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Driver_Transport");
+            }
+
             if (!IsPostBack)
             {
                 TransportSlip.Text = ""; 

@@ -14,10 +14,18 @@ namespace WebApplication1
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["HelperId"] == null)
+            {
+                Response.Redirect("Fab_Helper_Login.aspx?type=Fab_Helper_Month_Atten");
+            }
             //if (!IsPostBack)
             //{
             //    BindAttendanceSummary();
             //}
+            if (Session["HelperName"]!= null)
+            {
+                LblHelper.Text = Session["HelperName"].ToString(); 
+            }
         }
 
 
@@ -69,7 +77,7 @@ namespace WebApplication1
                             ExpenseSummary ES 
                             ON FU.User_id = ES.User_id
                         WHERE 
-                            FU.User_id = 1
+                            FU.User_id = @HelperId
                         ORDER BY 
                             FU.User_id;
                         ";
@@ -79,6 +87,7 @@ namespace WebApplication1
                 {
                     cmd.Parameters.AddWithValue("@FromDate", fromDate);
                     cmd.Parameters.AddWithValue("@ToDate", toDate);
+                    cmd.Parameters.AddWithValue("@HelperId", Session["HelperId"]);
 
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();

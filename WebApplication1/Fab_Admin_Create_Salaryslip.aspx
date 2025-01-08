@@ -303,6 +303,15 @@
         function validS() {
             const fromdate = document.getElementById('<%= fromDate.ClientID %>').value;
             const todate = document.getElementById('<%= toDate.ClientID %>').value;
+            const ddlHelper = document.getElementById('<%= ddlHelpername.ClientID %>');
+
+            if (!fromdate || !todate) {
+                swal("Please fill The Date to proceed..!", "", "error");
+                return false;
+            } else if (ddlHelper.selectedIndex === 0) {
+                swal("Please select a Helper!", "", "error");
+                return false;
+            }
 
             if (!fromdate || !todate) {
                 swal("Please fill The Date to proceed..!", "", "error");
