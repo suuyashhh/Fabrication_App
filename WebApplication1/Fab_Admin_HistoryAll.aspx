@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fa_Admin_History.aspx.cs" Inherits="WebApplication1.History" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Admin_HistoryAll.aspx.cs" Inherits="WebApplication1.Fab_Admin_HistoryAll" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -247,7 +247,7 @@
 
 
         window.onpopstate = function (event) {
-            window.location.href = 'WebPage.aspx';
+            window.location.href = 'Fabrication_Admin.aspx';
         };
 
 
@@ -269,3 +269,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
+

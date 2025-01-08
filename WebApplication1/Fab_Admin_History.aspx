@@ -160,11 +160,6 @@
                                     </FooterTemplate>
                                 </asp:Repeater>
 
-
-
-
-
-
                             </div>
                         </div>
                     </div>
@@ -172,6 +167,50 @@
             </div>
         </div>
     </form>
+
+
+     <script>
+     window.addEventListener('load', function () {
+         if (history.state === null) {
+             history.pushState({}, 'Monthly', window.location.href);
+         }
+
+         const img = document.querySelector('.header img');
+         const h1 = document.querySelector('.header h1');
+
+         img.style.transition = 'transform 1s ease-in-out';
+         h1.style.transition = 'transform 1s ease-in-out 0.2s';
+
+         img.style.transform = 'translateX(0)';
+         h1.style.transform = 'translateX(0)';
+     });
+
+     window.addEventListener('DOMContentLoaded', function () {
+         const img = document.querySelector('.header img');
+         const h1 = document.querySelector('.header h1');
+
+         img.style.transform = 'translateX(100%)';
+         h1.style.transform = 'translateX(100%)';
+     });
+
+     window.addEventListener('load', function () {
+         function animateMonthBoxes() {
+             const monthBoxes = document.querySelectorAll('.month-box');
+             monthBoxes.forEach((box, index) => {
+                 setTimeout(() => {
+                     box.classList.add('active');
+                 }, index * 300);
+             });
+         }
+         animateMonthBoxes();
+     });
+
+     window.onpopstate = function (event) {
+         window.location.href = 'Fab_Admin_SalaryHistory.aspx';
+     };
+
+     </script>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

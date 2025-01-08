@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Helper_WebPage.aspx.cs" Inherits="WebApplication1.Fab_Helper_WebPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fabrication_Helper.aspx.cs" Inherits="WebApplication1.Fab_Helper_WebPage" %>
 
 <!DOCTYPE html>
 
@@ -178,12 +178,12 @@
     <script type="text/javascript">
 
         window.onpopstate = function (event) {
-            window.location.href = 'WebPage.aspx';
+            window.location.href = 'Fabrication_Helper.aspx';
         };
 
         window.onload = function () {
             if (history.state === null) {
-                history.pushState({}, 'WebPage', window.location.href);
+                history.pushState({}, 'Fabrication_Helper', window.location.href);
             }
         };
     </script>

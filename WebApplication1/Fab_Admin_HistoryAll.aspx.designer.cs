@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class History
+    public partial class Fab_Admin_HistoryAll
     {
 
         /// <summary>

@@ -200,7 +200,7 @@
 
     <script type="text/javascript">
         window.onpopstate = function (event) {
-            window.location.href = 'WebPage.aspx';
+            window.location.href = 'Fabrication_Admin.aspx';
         };
 
         window.onload = function () {

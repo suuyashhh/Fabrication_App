@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Admin_WebPage.aspx.cs" Inherits="WebApplication1.Fab_Admin_WebPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fabrication_Admin.aspx.cs" Inherits="WebApplication1.Fab_Admin_WebPage" %>
 
 <!DOCTYPE html>
 
@@ -229,12 +229,12 @@
     <script type="text/javascript">
 
         window.onpopstate = function (event) {
-            window.location.href = 'WebPage.aspx';
+            window.location.href = 'Fabrication_Admin.aspx';
         };
 
         window.onload = function () {
             if (history.state === null) {
-                history.pushState({}, 'WebPage', window.location.href);
+                history.pushState({}, 'Fabrication_Admin', window.location.href);
             }
         };
     </script>

@@ -452,6 +452,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="FabImage\AdminCreateSalaySlip.png" />
     <Content Include="FabImage\AdminMaster.png" />
+    <Content Include="FabImage\AdvanceMoney.png" />
     <Content Include="FabImage\Attendense.png" />
     <Content Include="FabImage\Expanse.png" />
     <Content Include="FabImage\FabDailyAttandance.png" />
@@ -467,13 +468,14 @@
     <Content Include="Fab_Admin_DatePE.aspx" />
     <Content Include="Fab_Admin_Expanse.aspx" />
     <Content Include="Fab_Admin_History.aspx" />
+    <Content Include="Fab_Admin_HistoryAll.aspx" />
     <Content Include="Fab_Admin_Master.aspx" />
     <Content Include="Fab_Admin_MonthlyPE.aspx" />
     <Content Include="Fab_Admin_Profit.aspx" />
     <Content Include="Fab_Admin_SalaryHistory.aspx" />
     <Content Include="Fab_Admin_SpecificRecords.aspx" />
     <Content Include="Fab_Admin_Transport.aspx" />
-    <Content Include="Fab_Admin_WebPage.aspx" />
+    <Content Include="Fabrication_Admin.aspx" />
     <Content Include="Fab_Helper_Att.aspx" />
     <Content Include="Fab_Helper_History.aspx" />
     <Content Include="Fab_Helper_Login.aspx" />
@@ -481,8 +483,7 @@
     <Content Include="Fab_Helper_Registration.aspx" />
     <Content Include="Fab_Admin_Create_Salaryslip.aspx" />
     <Content Include="Fab_Helper_SalaryHistory.aspx" />
-    <Content Include="Fab_Helper_WebPage.aspx" />
-    <Content Include="Fa_Admin_History.aspx" />
+    <Content Include="Fabrication_Helper.aspx" />
     <Content Include="Fab_Admin_Login.aspx" />
     <Content Include="Fab_Driver_Transport.aspx" />
     <Content Include="favicon.ico" />
@@ -710,6 +711,13 @@
     <Compile Include="Fab_Admin_History.aspx.designer.cs">
       <DependentUpon>Fab_Admin_History.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Fab_Admin_HistoryAll.aspx.cs">
+      <DependentUpon>Fab_Admin_HistoryAll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fab_Admin_HistoryAll.aspx.designer.cs">
+      <DependentUpon>Fab_Admin_HistoryAll.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Fab_Admin_Master.aspx.cs">
       <DependentUpon>Fab_Admin_Master.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -752,12 +760,12 @@
     <Compile Include="Fab_Admin_Transport.aspx.designer.cs">
       <DependentUpon>Fab_Admin_Transport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Fab_Admin_WebPage.aspx.cs">
-      <DependentUpon>Fab_Admin_WebPage.aspx</DependentUpon>
+    <Compile Include="Fabrication_Admin.aspx.cs">
+      <DependentUpon>Fabrication_Admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Fab_Admin_WebPage.aspx.designer.cs">
-      <DependentUpon>Fab_Admin_WebPage.aspx</DependentUpon>
+    <Compile Include="Fabrication_Admin.aspx.designer.cs">
+      <DependentUpon>Fabrication_Admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Fab_Helper_Att.aspx.cs">
       <DependentUpon>Fab_Helper_Att.aspx</DependentUpon>
@@ -808,19 +816,12 @@
     <Compile Include="Fab_Helper_SalaryHistory.aspx.designer.cs">
       <DependentUpon>Fab_Helper_SalaryHistory.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Fab_Helper_WebPage.aspx.cs">
-      <DependentUpon>Fab_Helper_WebPage.aspx</DependentUpon>
+    <Compile Include="Fabrication_Helper.aspx.cs">
+      <DependentUpon>Fabrication_Helper.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Fab_Helper_WebPage.aspx.designer.cs">
-      <DependentUpon>Fab_Helper_WebPage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Fa_Admin_History.aspx.cs">
-      <DependentUpon>Fa_Admin_History.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Fa_Admin_History.aspx.designer.cs">
-      <DependentUpon>Fa_Admin_History.aspx</DependentUpon>
+    <Compile Include="Fabrication_Helper.aspx.designer.cs">
+      <DependentUpon>Fabrication_Helper.aspx</DependentUpon>
     </Compile>
     <Compile Include="Fab_Admin_Login.aspx.cs">
       <DependentUpon>Fab_Admin_Login.aspx</DependentUpon>
