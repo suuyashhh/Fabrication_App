@@ -30,7 +30,7 @@ namespace WebApplication1
         protected DataSet SalHistory()
         {
             con.Close();
-            SqlCommand cmd = new SqlCommand("Select Slip_id,User_id,Slip_Day from Salary_Slip order by Slip_Day Desc", con);
+            SqlCommand cmd = new SqlCommand("Select SS.Slip_id,FU.User_name,SS.Slip_Day from Salary_Slip SS Left join Fab_Users FU ON SS.User_id = FU.User_id order by Slip_Day Desc", con);
             con.Open();
             DataSet ds = new DataSet();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);

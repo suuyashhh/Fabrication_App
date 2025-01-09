@@ -31,12 +31,11 @@ namespace WebApplication1
             
             string query = @"
    WITH MonthlySummary AS (
-    
     SELECT 
         DATENAME(MONTH, fp.date) AS MonthName,
         YEAR(fp.date) AS YearValue,
         MONTH(fp.date) AS MonthNumber,
-        SUM(fp.Pro_price) AS TotalBill,
+        SUM(CAST(fp.Pro_price AS DECIMAL(18, 2))) AS TotalBill,
         0 AS TotalExpense
     FROM 
         Fab_profit fp
@@ -47,13 +46,12 @@ namespace WebApplication1
     
     UNION ALL
 
-    
     SELECT 
         DATENAME(MONTH, fe.date) AS MonthName,
         YEAR(fe.date) AS YearValue,
         MONTH(fe.date) AS MonthNumber,
         0 AS TotalBill,
-        SUM(ISNULL(fe.Exp_price, 0) + ISNULL(fe.user_advance, 0)) AS TotalExpense
+        SUM(CAST(ISNULL(fe.Exp_price, 0) AS DECIMAL(18, 2)) + CAST(ISNULL(fe.user_advance, 0) AS DECIMAL(18, 2))) AS TotalExpense
     FROM 
         Fab_Expanse fe
     GROUP BY 
@@ -63,13 +61,12 @@ namespace WebApplication1
     
     UNION ALL
 
-    
     SELECT 
         DATENAME(MONTH, ss.Slip_Day) AS MonthName,
         YEAR(ss.Slip_Day) AS YearValue,
         MONTH(ss.Slip_Day) AS MonthNumber,
         0 AS TotalBill,
-        SUM(ISNULL(ss.Grand_Total, 0)) AS TotalExpense
+        SUM(CAST(ISNULL(ss.Grand_Total, 0) AS DECIMAL(18, 2))) AS TotalExpense
     FROM 
         Salary_Slip ss
     GROUP BY 
@@ -89,7 +86,8 @@ FROM
 GROUP BY 
     MonthName, YearValue, MonthNumber
 ORDER BY 
-    YearValue DESC, MonthNumber DESC";
+    YearValue DESC, MonthNumber DESC;
+";
 
 
             try

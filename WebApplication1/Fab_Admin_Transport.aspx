@@ -163,7 +163,13 @@
                             <asp:TextBox ID="TrnPrice" CssClass="form-control form-control-lg" runat="server" TextMode="Number"></asp:TextBox>
                         </div>
                         <div class="form-group">
-                            <asp:Button ID="btnSubmitTransport" OnClick="btnSubmitTransport_Click" OnClientClick="return valid()" Text="Submit" CssClass="btn btn-submit btn-block" runat="server" />
+                            <asp:Button ID="btnSubmitTransport" 
+            OnClientClick="return valid();" 
+            OnClick="btnSubmitTransport_Click" 
+            Text="Submit" 
+            CssClass="btn btn-submit btn-block" 
+            runat="server" />
+
                         </div>
                     </div>
                 </div>
@@ -184,17 +190,19 @@
 
     <script>
         function valid() {
-            var date = document.getElementById('<%= this.TrnDate.ClientID %>').value;
-            var tp = Tplace.getElementById('<%= this.TrnPlace.ClientID %>').value;
-            var price = document.getElementById('<%= this.TrnPrice.ClientID %>').value;
+            // Get the values of the inputs using their ClientIDs
+            var date = document.getElementById('<%= TrnDate.ClientID %>').value;
+            var tp = document.getElementById('<%= TrnPlace.ClientID %>').value;
+            var price = document.getElementById('<%= TrnPrice.ClientID %>').value;
 
-            if (date == "" || tp == "" || price == "") {
+            if (date === "" || tp === "" || price === "") {
                 swal("Please fill all details to proceed..!", "", "error");
                 return false;
             }
 
             return true;
         }
+
     </script>
 
 

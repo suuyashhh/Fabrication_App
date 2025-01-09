@@ -24,9 +24,57 @@ namespace WebApplication1
             {
                 SalaryHistory();
                 HistoryAttendanceSummary.DataBind();
+                UserName();
             }
         }
 
+        protected void UserName()
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
+
+            conn.Close();
+            SqlCommand cmd = new SqlCommand("Select SS.*,FU.User_name from Salary_Slip SS Left join Fab_Users FU on SS.USer_id = FU.User_id where Slip_id=@id", conn);
+            cmd.Parameters.AddWithValue("@id", Request.QueryString["id"]);
+
+
+            try
+            {
+                
+                conn.Open();
+
+                
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read()) 
+                    {
+                        object userName = reader["User_name"]; 
+                        if (userName != DBNull.Value)
+                        {
+                            lblName.Text = userName.ToString(); 
+                        }
+                        else
+                        {
+                            lblName.Text = "User name not available."; 
+                        }
+                    }
+                    else
+                    {
+                        lblName.Text = "Record not found."; 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               
+                lblName.Text = "Error: " + ex.Message;
+            }
+            finally
+            {
+                
+                conn.Close();
+            }
+
+        }
         protected void SalaryHistory()
         {
             try

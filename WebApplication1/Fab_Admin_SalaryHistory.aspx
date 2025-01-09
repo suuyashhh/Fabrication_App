@@ -155,7 +155,7 @@
 
              <asp:TemplateField HeaderText="Name:">
                  <ItemTemplate>
-                     <asp:Label runat="server" ID="lblname" Text='<%# Eval("User_id") %>'></asp:Label>
+                     <asp:Label runat="server" ID="lblname" Text='<%# Eval("User_name") %>'></asp:Label>
                  </ItemTemplate>
              </asp:TemplateField>
 
