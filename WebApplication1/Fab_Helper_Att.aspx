@@ -159,7 +159,7 @@
     const savedData = JSON.parse(localStorage.getItem(userChoiceKey));
 
     if (savedData && savedData.date === today) {
-        swal(`You have already selected: ${savedData.choice}`, '', 'warning');
+        /*swal(`You have already selected: ${savedData.choice}`, '', 'warning');*/
         disableButtons(); 
     }
 
