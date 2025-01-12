@@ -32,6 +32,17 @@ namespace WebApplication1
                 lblgetTransport.Visible = false;
                 GridViewAttendance.Visible=false;
             }
+            if (!IsPostBack)
+            {
+                // Get the first and last dates of the current month
+                DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                // Set the default dates in the textboxes
+                txtFromDate.Text = firstDayOfMonth.ToString("yyyy-MM-dd"); // Ensure the format matches the expected input
+                txtToDate.Text = lastDayOfMonth.ToString("yyyy-MM-dd");
+
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)

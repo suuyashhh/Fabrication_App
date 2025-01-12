@@ -23,6 +23,19 @@ namespace WebApplication1
             {
                 LblHelper.Text = Session["HelperName"].ToString();
             }
+            if (!IsPostBack)
+            {
+                // Get the first and last dates of the current month
+                DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                // Set the default dates in the textboxes
+                fromDate.Text = firstDayOfMonth.ToString("yyyy-MM-dd"); // Ensure the format matches the expected input
+                toDate.Text = lastDayOfMonth.ToString("yyyy-MM-dd");
+
+               
+                BindAttendanceSummary(firstDayOfMonth, lastDayOfMonth);
+            }
         }
 
         private void BindAttendanceSummary(DateTime fromDate, DateTime toDate)

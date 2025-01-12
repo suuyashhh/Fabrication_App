@@ -215,10 +215,7 @@
         </div>
             </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            Developed by <a href="About.aspx" style="color: white!important">@SuyashPatil</a>
-        </footer>
+       
     </form>
 
     <!-- Bootstrap JS and dependencies -->

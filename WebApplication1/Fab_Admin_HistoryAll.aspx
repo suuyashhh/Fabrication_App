@@ -21,7 +21,7 @@
             font-family: "Saira", sans-serif;
         }
 
-       
+
         .header {
             display: flex;
             justify-content: flex-start;
@@ -53,7 +53,7 @@
             padding: 5px;
         }
 
-        
+
         .card-horizontal {
             display: flex;
             justify-content: space-between;
@@ -65,15 +65,15 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             flex-wrap: nowrap;
-            opacity: 0; 
-            transform: scale(0); 
-            transition: transform 0.6s ease, opacity 0.6s ease; 
+            opacity: 0;
+            transform: scale(0);
+            transition: transform 0.6s ease, opacity 0.6s ease;
         }
 
-            
+
             .card-horizontal.active {
-                transform: scale(1); 
-                opacity: 1; 
+                transform: scale(1);
+                opacity: 1;
             }
 
         .left-content {
@@ -104,7 +104,7 @@
 
         .right-content {
             text-align: center;
-            white-space: nowrap; 
+            white-space: nowrap;
         }
 
             .right-content h4 {
@@ -120,14 +120,14 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            opacity: 0; 
-            transform: scale(0); 
-            transition: transform 0.6s ease, opacity 0.6s ease; 
+            opacity: 0;
+            transform: scale(0);
+            transition: transform 0.6s ease, opacity 0.6s ease;
         }
 
-            
+
             .month-year-header.active {
-                opacity: 1; 
+                opacity: 1;
                 transform: scale(1);
             }
 
@@ -137,7 +137,7 @@
                 color: #333;
             }
 
-        
+
         @media (max-width: 768px) {
             .card-horizontal {
                 justify-content: space-between;
@@ -179,6 +179,28 @@
                 font-size: 1.2rem;
             }
         }
+
+        .search-bar-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 100px auto 20px;
+            text-align: center;
+        }
+
+        .search-bar {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            width: 100%;
+        }
+
+            .search-bar:focus {
+                outline: none;
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
     </style>
 </head>
 <body>
@@ -190,15 +212,51 @@
                 <h1>History</h1>
             </div>
 
-            
-            <div style="margin-top: 150px"></div>
+            <div class="search-bar-container">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="searchIcon">
+                            <i class="bi bi-search"></i>
+                        </span>
+                    </div>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="form-control search-bar"
+                        placeholder="Search..."
+                        oninput="filterRecords()"
+                        aria-describedby="searchIcon" />
+                </div>
+            </div>
 
-           
+
+
+
+            <div style="margin-top: 10px"></div>
+
+
             <asp:Literal ID="litRecords" runat="server"></asp:Literal>
 
-            
+
         </div>
     </form>
+
+    <script type="text/javascript">
+        function filterRecords() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const records = document.querySelectorAll(".card-horizontal, .month-year-header");
+
+            records.forEach(record => {
+                const textContent = record.textContent || record.innerText;
+
+                if (textContent.toLowerCase().includes(input)) {
+                    record.style.display = "";
+                } else {
+                    record.style.display = "none";
+                }
+            });
+        }
+    </script>
 
 
     <script type="text/javascript">

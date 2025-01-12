@@ -1,24 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace WebApplication1
 {
-    public partial class Fab_Driver_Transport : Page
+    public partial class Transport : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["connstr"].ConnectionString);
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["AdminId"] == null)
-            {
-                Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Driver_Transport");
-            }
-
+          
             if (!IsPostBack)
             {
-                TransportSlip.Text = ""; 
+                TransportSlip.Text = "";
             }
 
             if (!IsPostBack)
@@ -40,25 +40,25 @@ namespace WebApplication1
 
         protected void btnSearchDate_Click(object sender, EventArgs e)
         {
-            
+
             string fromDateText = fromDate.Text;
             string toDateText = toDate.Text;
 
             DateTime fromDateValue, toDateValue;
 
-            
+
             if (DateTime.TryParse(fromDateText, out fromDateValue) && DateTime.TryParse(toDateText, out toDateValue))
             {
-            
+
                 fromDateSpan.InnerText = fromDateValue.ToString("dd-MMM-yyyy");
                 toDateSpan.InnerText = toDateValue.ToString("dd-MMM-yyyy");
 
-            
+
                 GenerateTransportSlip(fromDateValue, toDateValue);
             }
             else
             {
-            
+
                 TransportSlip.Text = "<div class='alert alert-danger'>Invalid dates provided. Please try again.</div>";
             }
         }
@@ -69,7 +69,7 @@ namespace WebApplication1
             string connectionString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-            
+
                 string query = "SELECT date, Exp_name, Exp_price FROM Fab_Expanse WHERE User_id = 20203 AND date >= @FromDate AND date <= @ToDate order by date Asc";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@FromDate", fromDate);
@@ -90,7 +90,7 @@ namespace WebApplication1
 
                 decimal total = 0;
 
-                
+
                 while (reader.Read())
                 {
                     DateTime date = Convert.ToDateTime(reader["date"]);
@@ -106,7 +106,7 @@ namespace WebApplication1
                     total += payment;
                 }
 
-                
+
                 TransportSlip.Text += "<tr>" +
                                       "<td colspan='2'><strong>TOTAL</strong></td>" +
                                       "<td>" + total.ToString("N0") + "</td>" +
@@ -114,11 +114,10 @@ namespace WebApplication1
 
                 TransportSlip.Text += "</tbody></table>";
 
-                
+
                 reader.Close();
             }
         }
 
-        
     }
 }

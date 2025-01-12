@@ -19,6 +19,20 @@ namespace WebApplication1
             {
                 Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Admin_DatePE");
             }
+
+            if (!IsPostBack)
+            {
+                // Get the first and last dates of the current month
+                DateTime firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                // Set the default dates in the textboxes
+                fromDate.Text = firstDayOfMonth.ToString("yyyy-MM-dd"); // Ensure the format matches the expected input
+                toDate.Text = lastDayOfMonth.ToString("yyyy-MM-dd");
+
+              
+                ShowProfitExpenseForDateRange(firstDayOfMonth, lastDayOfMonth);
+            }
         }
 
         protected void btnSearchDatePE_Click(object sender, EventArgs e)
@@ -38,47 +52,45 @@ namespace WebApplication1
         protected void ShowProfitExpenseForDateRange(DateTime fromDate, DateTime toDate)
         {
             string query = @"
-            WITH MonthlySummary AS (
-                
-                SELECT 
-                    'Bill' AS Category,
-                    SUM(fp.Pro_price) AS TotalAmount,
-                    0 AS TotalExpense
-                FROM 
-                    Fab_profit fp
-                WHERE 
-                    fp.date BETWEEN @fromDate AND @toDate
+          WITH MonthlySummary AS (
+    SELECT 
+        'Bill' AS Category,
+        SUM(CAST(fp.Pro_price AS DECIMAL(18, 2))) AS TotalAmount,
+        0 AS TotalExpense
+    FROM 
+        Fab_profit fp
+    WHERE 
+        fp.date BETWEEN @fromDate AND @toDate
 
-                UNION ALL
+    UNION ALL
 
-                
-                SELECT 
-                    'Expense' AS Category,
-                    0 AS TotalAmount,
-                    SUM(ISNULL(fe.Exp_price, 0) + ISNULL(fe.user_advance, 0)) AS TotalExpense
-                FROM 
-                    Fab_Expanse fe
-                WHERE 
-                    fe.date BETWEEN @fromDate AND @toDate
+    SELECT 
+        'Expense' AS Category,
+        0 AS TotalAmount,
+        SUM(ISNULL(CAST(fe.Exp_price AS DECIMAL(18, 2)), 0) + ISNULL(CAST(fe.user_advance AS DECIMAL(18, 2)), 0)) AS TotalExpense
+    FROM 
+        Fab_Expanse fe
+    WHERE 
+        fe.date BETWEEN @fromDate AND @toDate
 
-                UNION ALL
+    UNION ALL
 
-                
-                SELECT 
-                    'Salary' AS Category,
-                    0 AS TotalAmount,
-                    SUM(ISNULL(ss.Grand_Total, 0)) AS TotalExpense
-                FROM 
-                    Salary_Slip ss
-                WHERE 
-                    ss.Slip_Day BETWEEN @fromDate AND @toDate
-            )
-            SELECT 
-                SUM(TotalAmount) AS TotalBill,
-                SUM(TotalExpense) AS TotalExpense,
-                (SUM(TotalAmount) - SUM(TotalExpense)) AS Profit
-            FROM 
-                MonthlySummary";
+    SELECT 
+        'Salary' AS Category,
+        0 AS TotalAmount,
+        SUM(ISNULL(CAST(ss.Grand_Total AS DECIMAL(18, 2)), 0)) AS TotalExpense
+    FROM 
+        Salary_Slip ss
+    WHERE 
+        ss.Slip_Day BETWEEN @fromDate AND @toDate
+)
+SELECT 
+    SUM(TotalAmount) AS TotalBill,
+    SUM(TotalExpense) AS TotalExpense,
+    (SUM(TotalAmount) - SUM(TotalExpense)) AS Profit
+FROM 
+    MonthlySummary;
+";
 
             try
             {

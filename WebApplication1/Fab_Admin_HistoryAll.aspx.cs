@@ -40,12 +40,13 @@ SELECT
     END AS record_type,
     CASE 
         WHEN User_id BETWEEN 0 AND 1000 THEN 
-            (SELECT TOP 1 user_name FROM Fab_Users WHERE Fab_Users.user_id = Fab_Expanse.User_id)
+            (SELECT user_name 
+             FROM Fab_Users 
+             WHERE Fab_Users.user_id = Fab_Expanse.User_id)
         ELSE Exp_name
     END AS record_name,
     CASE
-        WHEN User_id BETWEEN 0 AND 1000 THEN 
-            (SELECT TOP 1 User_advance FROM Fab_Expanse AS innerExp WHERE innerExp.User_id = Fab_Expanse.User_id)
+        WHEN User_id BETWEEN 0 AND 1000 THEN User_advance -- Display advance values date-wise
         ELSE Exp_price
     END AS price,
     date AS record_date
@@ -58,7 +59,9 @@ SELECT
     Slip_id AS record_id,
     User_id,
     'SalarySlip' AS record_type,
-    (SELECT user_name FROM .Fab_Users WHERE Fab_Users.user_id = Salary_Slip.User_id) AS record_name,
+    (SELECT user_name 
+     FROM Fab_Users 
+     WHERE Fab_Users.user_id = Salary_Slip.User_id) AS record_name,
     Grand_Total AS price,
     Slip_Day AS record_date
 FROM Salary_Slip
@@ -74,7 +77,7 @@ SELECT
     date AS record_date
 FROM dbo.Fab_Profit
 
-ORDER BY record_date DESC;
+ORDER BY record_date DESC, User_id;
 ";
 
             using (SqlCommand cmd = new SqlCommand(query, con))
