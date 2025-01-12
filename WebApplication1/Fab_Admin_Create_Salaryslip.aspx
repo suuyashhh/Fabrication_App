@@ -57,6 +57,13 @@
             .btn-submit:hover {
                 background-color: #0a58ca;
             }
+              #calendarContainer {
+      background-color: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      padding: 10px;
+  }
     </style>
 </head>
 <body>
@@ -77,6 +84,11 @@
                                 <div class="col-md-6">
                                     <label for="fromDate" class="form-label">From Date*</label>
                                     <asp:TextBox ID="fromDate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
+                                    <!-- Calendar wrapped in a div for positioning -->
+                                    <div id="calendarContainer" style="display: none; position: absolute; z-index: 100;">
+                                        <asp:Calendar ID="AttendanceCalendar" runat="server"
+                                            OnDayRender="AttendanceCalendar_DayRender" />
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="toDate" class="form-label">To Date*</label>
@@ -121,79 +133,79 @@
                             </div>
                             <div class="table-responsive">
 
-                               <asp:Repeater ID="rptAttendanceSummary" runat="server">
-    <HeaderTemplate>
-        <table class="table table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <th></th>
-                    <th>Days</th>
-                    <th>Salary</th>
-                    <th>Total Salary</th>
-                </tr>
-            </thead>
-            <tbody>
-    </HeaderTemplate>
-    <ItemTemplate>
-        <tr>
-            <td>FULL DAY</td>
-            <td>
-                <asp:Label ID="fullDayCount" runat="server" Text='<%# Eval("FullDay_Count") %>'></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="fullDaySalary" runat="server" CssClass="form-control salary-input"
-                    Text='<%# Eval("User_salary") %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="fullDay"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label ID="fullDayTotal" runat="server" Text='<%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %>'></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td>HALF DAY</td>
-            <td>
-                <asp:Label ID="halfDayCount" runat="server" Text='<%# Eval("HalfDay_Count") %>'></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="halfDaySalary" runat="server" CssClass="form-control salary-input"
-                    Text='<%# (Convert.ToDecimal(Eval("User_salary")) / 2) %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="halfDay"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label ID="halfDayTotal" runat="server" Text='<%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %>'></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td>OFF DAY</td>
-            <td>
-                <asp:Label ID="offDayCount" runat="server" Text='<%# Eval("OffDay_Count") %>'></asp:Label>
-            </td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>ADVANCE</td>
-            <td></td>
-            <td>
-                <asp:TextBox ID="advanceAmount" runat="server" CssClass="form-control advance-input"
-                    Text='<%# Eval("TOTAL_ADVANCE") %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="advance"></asp:TextBox>
-            </td>
-            <td>
-                <asp:Label ID="advanceTotal" runat="server" Text='<%# Eval("TOTAL_ADVANCE") %>'></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3"><strong>TOTAL</strong></td>
-            <td>
-                <asp:Label ID="grandTotal" runat="server" Text='<%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
+                                <asp:Repeater ID="rptAttendanceSummary" runat="server">
+                                    <HeaderTemplate>
+                                        <table class="table table-bordered">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Days</th>
+                                                    <th>Salary</th>
+                                                    <th>Total Salary</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td>FULL DAY</td>
+                                            <td>
+                                                <asp:Label ID="fullDayCount" runat="server" Text='<%# Eval("FullDay_Count") %>'></asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:TextBox ID="fullDaySalary" runat="server" CssClass="form-control salary-input"
+                                                    Text='<%# Eval("User_salary") %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="fullDay"></asp:TextBox>
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="fullDayTotal" runat="server" Text='<%# Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) %>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>HALF DAY</td>
+                                            <td>
+                                                <asp:Label ID="halfDayCount" runat="server" Text='<%# Eval("HalfDay_Count") %>'></asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:TextBox ID="halfDaySalary" runat="server" CssClass="form-control salary-input"
+                                                    Text='<%# (Convert.ToDecimal(Eval("User_salary")) / 2) %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="halfDay"></asp:TextBox>
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="halfDayTotal" runat="server" Text='<%# (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2) %>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>OFF DAY</td>
+                                            <td>
+                                                <asp:Label ID="offDayCount" runat="server" Text='<%# Eval("OffDay_Count") %>'></asp:Label>
+                                            </td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ADVANCE</td>
+                                            <td></td>
+                                            <td>
+                                                <asp:TextBox ID="advanceAmount" runat="server" CssClass="form-control advance-input"
+                                                    Text='<%# Eval("TOTAL_ADVANCE") %>' AutoPostBack="true" OnTextChanged="CalculateSalary" data-type="advance"></asp:TextBox>
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="advanceTotal" runat="server" Text='<%# Eval("TOTAL_ADVANCE") %>'></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"><strong>TOTAL</strong></td>
+                                            <td>
+                                                <asp:Label ID="grandTotal" runat="server" Text='<%# (Convert.ToDecimal(Eval("FullDay_Count")) * Convert.ToDecimal(Eval("User_salary")) 
                 + (Convert.ToDecimal(Eval("HalfDay_Count")) * Convert.ToDecimal(Eval("User_salary")) / 2)
                 - Convert.ToDecimal(Eval("TOTAL_ADVANCE"))) %>'></asp:Label>
-            </td>
-        </tr>
-    </ItemTemplate>
-    <FooterTemplate>
-        </tbody>
+                                            </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
        </table>
-    </FooterTemplate>
-</asp:Repeater>
+                                    </FooterTemplate>
+                                </asp:Repeater>
 
 
 
@@ -211,7 +223,27 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const fromDateInput = document.getElementById('<%= fromDate.ClientID %>');
+            const calendarContainer = document.getElementById('calendarContainer');
 
+            // Show the calendar when clicking the input
+            fromDateInput.addEventListener('click', function () {
+                calendarContainer.style.display = 'block';
+                calendarContainer.style.position = 'absolute';
+                calendarContainer.style.left = `${fromDateInput.offsetLeft}px`;
+                calendarContainer.style.top = `${fromDateInput.offsetTop + fromDateInput.offsetHeight}px`;
+            });
+
+            // Hide the calendar when clicking elsewhere
+            document.addEventListener('click', function (event) {
+                if (!calendarContainer.contains(event.target) && event.target !== fromDateInput) {
+                    calendarContainer.style.display = 'none';
+                }
+            });
+        });
+        </script>
 
     <script>
         $(document).ready(function () {
@@ -334,47 +366,47 @@
     </script>
 
 
-     <script>
-         window.addEventListener('load', function () {
-             if (history.state === null) {
-                 history.pushState({}, 'Monthly', window.location.href);
-             }
+    <script>
+        window.addEventListener('load', function () {
+            if (history.state === null) {
+                history.pushState({}, 'Monthly', window.location.href);
+            }
 
-             const img = document.querySelector('.header img');
-             const h1 = document.querySelector('.header h1');
+            const img = document.querySelector('.header img');
+            const h1 = document.querySelector('.header h1');
 
-             img.style.transition = 'transform 1s ease-in-out';
-             h1.style.transition = 'transform 1s ease-in-out 0.2s';
+            img.style.transition = 'transform 1s ease-in-out';
+            h1.style.transition = 'transform 1s ease-in-out 0.2s';
 
-             img.style.transform = 'translateX(0)';
-             h1.style.transform = 'translateX(0)';
-         });
+            img.style.transform = 'translateX(0)';
+            h1.style.transform = 'translateX(0)';
+        });
 
-         window.addEventListener('DOMContentLoaded', function () {
-             const img = document.querySelector('.header img');
-             const h1 = document.querySelector('.header h1');
+        window.addEventListener('DOMContentLoaded', function () {
+            const img = document.querySelector('.header img');
+            const h1 = document.querySelector('.header h1');
 
-             img.style.transform = 'translateX(100%)';
-             h1.style.transform = 'translateX(100%)';
-         });
+            img.style.transform = 'translateX(100%)';
+            h1.style.transform = 'translateX(100%)';
+        });
 
-         window.addEventListener('load', function () {
-             function animateMonthBoxes() {
-                 const monthBoxes = document.querySelectorAll('.month-box');
-                 monthBoxes.forEach((box, index) => {
-                     setTimeout(() => {
-                         box.classList.add('active');
-                     }, index * 300);
-                 });
-             }
-             animateMonthBoxes();
-         });
+        window.addEventListener('load', function () {
+            function animateMonthBoxes() {
+                const monthBoxes = document.querySelectorAll('.month-box');
+                monthBoxes.forEach((box, index) => {
+                    setTimeout(() => {
+                        box.classList.add('active');
+                    }, index * 300);
+                });
+            }
+            animateMonthBoxes();
+        });
 
-         window.onpopstate = function (event) {
-             window.location.href = 'Fabrication_Admin.aspx';
-         };
+        window.onpopstate = function (event) {
+            window.location.href = 'Fabrication_Admin.aspx';
+        };
 
-     </script>
+    </script>
 
 </body>
 </html>

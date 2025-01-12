@@ -55,6 +55,14 @@
             .btn-submit:hover {
                 background-color: #0a58ca;
             }
+
+        #calendarContainer {
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
@@ -75,11 +83,19 @@
                                 <div class="col-md-6">
                                     <label for="fromDate" class="form-label">From Date*</label>
                                     <asp:TextBox ID="fromDate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
+                                    <!-- Calendar wrapped in a div for positioning -->
+                                    <div id="calendarContainer" style="display: none; position: absolute; z-index: 100;">
+                                        <asp:Calendar ID="AttendanceCalendar" runat="server"
+                                            OnDayRender="AttendanceCalendar_DayRender" />
+                                    </div>
+
                                 </div>
+
                                 <div class="col-md-6">
                                     <label for="toDate" class="form-label">To Date*</label>
                                     <asp:TextBox ID="toDate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
                                 </div>
+
                             </div>
                             <div class="text-center mt-4">
                                 <asp:Button ID="btnSearchDatePE" OnClick="btnSearchDatePE_Click" OnClientClick="return valid()" Text="Search" CssClass="btn btn-submit" runat="server" />
@@ -96,21 +112,22 @@
                                 <div class="row g-3">
                                     <div class="col-md-4">
                                         <strong>HELPER NAME:</strong><br />
-                                       <strong> <asp:Label runat="server" ID="LblHelper" ></asp:Label></strong>
-                                      <br />
+                                        <strong>
+                                            <asp:Label runat="server" ID="LblHelper"></asp:Label></strong>
+                                        <br />
                                     </div>
                                     <div class="col-md-4">
                                         <strong>From Date:</strong> <span id="fromDateSpan">N/A</span><br />
                                         <strong>To Date:</strong> <span id="toDateSpan">N/A</span>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             <div class="card-body text-center">
                                 <h5><strong>SALARY SLIP FOR THE MONTH OF -</strong></h5>
                             </div>
                             <div class="table-responsive">
-                             
+
 
                                 <asp:Repeater ID="rptAttendanceSummary" runat="server">
                                     <HeaderTemplate>
@@ -181,6 +198,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fromDateInput = document.getElementById('<%= fromDate.ClientID %>');
+            const calendarContainer = document.getElementById('calendarContainer');
+
+            // Show the calendar when clicking the input
+            fromDateInput.addEventListener('click', function () {
+                calendarContainer.style.display = 'block';
+                calendarContainer.style.position = 'absolute';
+                calendarContainer.style.left = `${fromDateInput.offsetLeft}px`;
+                calendarContainer.style.top = `${fromDateInput.offsetTop + fromDateInput.offsetHeight}px`;
+            });
+
+            // Hide the calendar when clicking elsewhere
+            document.addEventListener('click', function (event) {
+                if (!calendarContainer.contains(event.target) && event.target !== fromDateInput) {
+                    calendarContainer.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
+    <script>
         window.addEventListener('load', function () {
             // Update From Date and To Date dynamically
             const fromDate = document.getElementById('<%= fromDate.ClientID %>').value;
@@ -210,47 +250,48 @@
             return true;
         }
     </script>
-     <script>
-         window.addEventListener('load', function () {
-             if (history.state === null) {
-                 history.pushState({}, 'Monthly', window.location.href);
-             }
 
-             const img = document.querySelector('.header img');
-             const h1 = document.querySelector('.header h1');
+    <script>
+        window.addEventListener('load', function () {
+            if (history.state === null) {
+                history.pushState({}, 'Monthly', window.location.href);
+            }
 
-             img.style.transition = 'transform 1s ease-in-out';
-             h1.style.transition = 'transform 1s ease-in-out 0.2s';
+            const img = document.querySelector('.header img');
+            const h1 = document.querySelector('.header h1');
 
-             img.style.transform = 'translateX(0)';
-             h1.style.transform = 'translateX(0)';
-         });
+            img.style.transition = 'transform 1s ease-in-out';
+            h1.style.transition = 'transform 1s ease-in-out 0.2s';
 
-         window.addEventListener('DOMContentLoaded', function () {
-             const img = document.querySelector('.header img');
-             const h1 = document.querySelector('.header h1');
+            img.style.transform = 'translateX(0)';
+            h1.style.transform = 'translateX(0)';
+        });
 
-             img.style.transform = 'translateX(100%)';
-             h1.style.transform = 'translateX(100%)';
-         });
+        window.addEventListener('DOMContentLoaded', function () {
+            const img = document.querySelector('.header img');
+            const h1 = document.querySelector('.header h1');
 
-         window.addEventListener('load', function () {
-             function animateMonthBoxes() {
-                 const monthBoxes = document.querySelectorAll('.month-box');
-                 monthBoxes.forEach((box, index) => {
-                     setTimeout(() => {
-                         box.classList.add('active');
-                     }, index * 300);
-                 });
-             }
-             animateMonthBoxes();
-         });
+            img.style.transform = 'translateX(100%)';
+            h1.style.transform = 'translateX(100%)';
+        });
 
-         window.onpopstate = function (event) {
-             window.location.href = 'Fabrication_Helper.aspx';
-         };
+        window.addEventListener('load', function () {
+            function animateMonthBoxes() {
+                const monthBoxes = document.querySelectorAll('.month-box');
+                monthBoxes.forEach((box, index) => {
+                    setTimeout(() => {
+                        box.classList.add('active');
+                    }, index * 300);
+                });
+            }
+            animateMonthBoxes();
+        });
 
-     </script>
+        window.onpopstate = function (event) {
+            window.location.href = 'Fabrication_Helper.aspx';
+        };
+
+    </script>
 
 </body>
 </html>

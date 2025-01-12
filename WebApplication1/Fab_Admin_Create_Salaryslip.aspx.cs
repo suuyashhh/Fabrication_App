@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -276,6 +277,74 @@ namespace WebApplication1
                 AdvanceTotal = advanceTotal.ToString("F2"),
                 GrandTotal = grandTotal.ToString("F2")
             };
+        }
+
+
+        protected void AttendanceCalendar_DayRender(object sender, DayRenderEventArgs e)
+        {
+            // Ensure we're only modifying dates in the current month
+            if (e.Day.IsOtherMonth)
+            {
+                e.Cell.Text = string.Empty; // Clear the cell for other months
+                e.Cell.BackColor = System.Drawing.Color.LightGray;
+                return;
+            }
+
+            // Fetch the attendance data for the current Helper
+            DataTable attendanceData = GetAttendanceDataForMonth(e.Day.Date);
+
+            if (attendanceData.Rows.Count > 0)
+            {
+                foreach (DataRow row in attendanceData.Rows)
+                {
+                    DateTime attendanceDate = Convert.ToDateTime(row["Date"]);
+                    string dayType = row["User_day"].ToString();
+
+                    if (e.Day.Date == attendanceDate)
+                    {
+                        switch (dayType)
+                        {
+                            case "Full Day":
+                                e.Cell.BackColor = System.Drawing.Color.LightGreen; // Full Day - Green
+                                break;
+                            case "Half Day":
+                                e.Cell.BackColor = System.Drawing.Color.Yellow; // Half Day - Yellow
+                                break;
+                            case "Off Day":
+                                e.Cell.BackColor = System.Drawing.Color.Red; // Off Day - Red
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private DataTable GetAttendanceDataForMonth(DateTime date)
+        {
+            DataTable dataTable = new DataTable();
+            string connString = ConfigurationManager.ConnectionStrings["connstr"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                string query = @"
+            SELECT CAST(date AS DATE) AS Date, User_day 
+            FROM Fab_Helper_Att 
+            WHERE 
+                User_id = @HelId AND
+                MONTH(date) = @Month AND YEAR(date) = @Year";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@HelId", ddlHelpername.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Month", date.Month);
+                    cmd.Parameters.AddWithValue("@Year", date.Year);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            return dataTable;
         }
 
 
