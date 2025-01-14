@@ -1,0 +1,703 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprig Store - India's Premium Wood Accessory Brand</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #006B5E;
+            --white: #ffffff;
+            --black: #333333;
+            --gray: #666666;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        /* Announcement Bar */
+        .announcement-bar {
+            background: var(--primary);
+            color: var(--white);
+            padding: 8px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .announcement-slider {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .announcement-slider a {
+                color: var(--white);
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+        .announcement-text {
+            text-align: center;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            height: 35px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+            .nav-menu a {
+                text-decoration: none;
+                color: var(--black);
+                font-size: 14px;
+                font-weight: 500;
+                text-transform: uppercase;
+                transition: color 0.3s ease;
+            }
+
+                .nav-menu a:hover {
+                    color: var(--primary);
+                }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+            .header-icons img {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--primary);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .hero-image {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            .dot.active {
+                background: var(--white);
+            }
+
+        /* Shop By Brand */
+        .shop-by-brand {
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+            .shop-by-brand h2 {
+                font-size: 2rem;
+                color: var(--primary);
+                margin-bottom: 40px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+        /* Review Popup */
+        .review-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            align-items: start;
+            max-width: 300px;
+            z-index: 99;
+        }
+
+        .review-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .review-content {
+            flex: 1;
+        }
+
+        .review-stars {
+            color: #FFD700;
+            margin-bottom: 5px;
+        }
+
+        .review-text {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .review-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1000;
+            padding: 20px;
+            transition: left 0.3s ease;
+        }
+
+            .mobile-menu.active {
+                left: 0;
+            }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            margin-top: 60px;
+        }
+
+            .mobile-nav a {
+                display: block;
+                padding: 15px 0;
+                text-decoration: none;
+                color: var(--black);
+                border-bottom: 1px solid #eee;
+                font-size: 16px;
+            }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+            z-index: 999;
+        }
+
+            .overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .announcement-slider {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-image {
+                max-width: 90%;
+            }
+
+            .review-popup {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .header-icons {
+                gap: 15px;
+            }
+
+                .header-icons img {
+                    width: 18px;
+                    height: 18px;
+                }
+        }
+
+        .product-grid-section {
+            padding: 40px 5%;
+            background: #f8f9fa;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            margin: 0;
+        }
+
+        .explore-btn {
+            background: #006B5E;
+            color: white;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+            .explore-btn:hover {
+                background: #005347;
+            }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #006B5E;
+            border-radius: 4px;
+            background: none;
+            color: #006B5E;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .filter-btn.active {
+                background: #006B5E;
+                color: white;
+            }
+
+            .filter-btn:hover {
+                background: #006B5E;
+                color: white;
+            }
+
+        @media (max-width: 768px) {
+            .product-grid-section {
+                padding: 24px 16px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 120px;
+            }
+
+            .product-content {
+                padding: 16px;
+            }
+
+            .product-title {
+                font-size: 1.1rem;
+            }
+
+            .explore-btn {
+                padding: 10px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="announcement-bar">
+        <div class="announcement-slider">
+            <a href="tel:+919551407133">+91 8055651695</a>
+            <div class="announcement-text">INDIA'S PREMIUM Wood ACCESSORY BRAND</div>
+            <a href="mailto:CARE@SPRIG.STORE">JAY@GMAIL.COM</a>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-container">
+            <button class="menu-toggle">☰</button>
+            <img src="Fabrication/Logo2.png" alt="Sprig" class="logo">
+
+            <nav class="nav-menu">
+                <a href="#">HOME</a>
+                <a href="#">STORE</a>
+                <a href="#">CATEGORY</a>
+                <a href="#">WARRANTY</a>
+                <a href="#">FAQ</a>
+                <a href="#">ABOUT US</a>
+                <a href="#">PARTNER WITH US</a>
+            </nav>
+
+            <div class="header-icons">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E" alt="Search">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E" alt="Account">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z'/%3E%3Cline x1='3' y1='6' x2='21' y2='6'/%3E%3Cpath d='M16 10a4 4 0 0 1-8 0'/%3E%3C/svg%3E" alt="Cart">
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">×</button>
+        <nav class="mobile-nav">
+            <a href="#">HOME</a>
+            <a href="#">STORE</a>
+            <a href="#">CATEGORY</a>
+            <a href="#">WARRANTY</a>
+            <a href="#">FAQ</a>
+            <a href="#">ABOUT US</a>
+            <a href="#">PARTNER WITH US</a>
+            <a href="#">MY ACCOUNT</a>
+        </nav>
+    </div>
+
+    <div class="overlay"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Colours Never Die.</h1>
+            <p>Fiber cases now available in brighter and better colours</p>
+            <img src="Fabrication/Cardd.jpg" alt="Colorful Phone Cases" class="hero-image">
+        </div>
+        <div class="slider-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </section>
+
+    <section class="shop-by-brand">
+        <h2>SHOP BY BRAND</h2>
+    </section>
+
+    <div class="review-popup">
+        <img src="/placeholder.svg" alt="Product Review" class="review-image">
+        <div class="review-content">
+            <div class="review-stars">★★★★★</div>
+            <div class="review-text">
+                BEST CASE FOR ANDROID AND IOS<br>
+                VERY NICELY CREATED... SOFT MATERIAL..GREAT IN HAND FEEL...
+            </div>
+            <div class="review-product">VIVO V27 5G</div>
+        </div>
+        <button class="review-close">×</button>
+    </div>
+
+
+
+    <section class="product-grid-section">
+        <div class="filter-buttons">
+            <button class="filter-btn active">Back Covers</button>
+            <button class="filter-btn">Tempered Glass</button>
+            <button class="filter-btn">Charging Cable</button>
+            <button class="filter-btn">Smart Watch Straps</button>
+        </div>
+
+        <div class="product-grid">
+            <!-- Liquid Silicone Back Covers -->
+            <div class="product-card">
+                <img src="Fabrication/k1.jpg" alt="Liquid Silicone Back Covers" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Kitchen Trollies</h3>
+                    <a href="#" class="explore-btn">Explore Now</a>
+                </div>
+            </div>
+
+            <!-- Magsafe Back Covers -->
+            <div class="product-card">
+                <img src="Fabrication/door1.jpg" alt="Magsafe Back Covers" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Main Doors</h3>
+                    <a href="#" class="explore-btn">Explore Now</a>
+                </div>
+            </div>
+
+            <!-- PU Leather Magsafe -->
+            <div class="product-card">
+                <img src="Fabrication/door2.jpg" alt="PU Leather Magsafe" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Primium Door</h3>
+                    <a href="#" class="explore-btn">Explore Now</a>
+                </div>
+            </div>
+
+            <!-- TPU Back Covers -->
+            <div class="product-card">
+                <img src="Fabrication/FiberProduct.jpg" alt="TPU Back Covers" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Fiber Products</h3>
+                    <a href="#" class="explore-btn">Explore Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Filter button functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Mobile Menu Functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+        const overlay = document.querySelector('.overlay');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        // Slider Functionality
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+
+        function updateSlider(index) {
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateSlider(currentSlide);
+            });
+        });
+
+        // Auto slide
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % dots.length;
+            updateSlider(currentSlide);
+        }, 5000);
+
+        // Review Popup
+        const reviewPopup = document.querySelector('.review-popup');
+        const reviewClose = document.querySelector('.review-close');
+
+        if (reviewClose) {
+            reviewClose.addEventListener('click', () => {
+                reviewPopup.style.display = 'none';
+            });
+        }
+
+        // Header Scroll Behavior
+        let lastScroll = 0;
+        const header = document.querySelector('.header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll <= 0) {
+                header.classList.remove('scroll-up');
+                return;
+            }
+
+            if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+                header.classList.remove('scroll-up');
+                header.classList.add('scroll-down');
+            } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+                header.classList.remove('scroll-down');
+                header.classList.add('scroll-up');
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
