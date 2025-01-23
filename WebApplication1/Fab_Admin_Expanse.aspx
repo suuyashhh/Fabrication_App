@@ -20,6 +20,7 @@
             margin: 0;
             padding: 0;
             font-family: "Saira", sans-serif;
+            height: 100%; /* Ensure full height for centering */
         }
 
         .header {
@@ -47,10 +48,19 @@
                 color: #495057;
             }
 
-        .content {
-            padding: 80px 20px 20px;
+        .container-fluid {
+            height: 100vh; /* Full viewport height for centering */
+            display: flex;
+            flex-direction: column;
         }
 
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center; /* Horizontally center content */
+            align-items: center; /* Vertically center content */
+            padding: 20px;
+        }
 
         .form-group {
             position: relative;
@@ -131,7 +141,22 @@
         textarea.form-control {
             padding-top: 10px;
         }
+
+        .row {
+            width: 100%;
+        }
+
+        .justify-content-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .align-items-center {
+            display: flex;
+            align-items: center;
+        }
     </style>
+
 </head>
 <body>
     <form id="form2" runat="server">

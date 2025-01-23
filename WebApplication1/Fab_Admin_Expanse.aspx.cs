@@ -19,6 +19,24 @@ namespace WebApplication1
             {
                 Response.Redirect("Fab_Admin_Login.aspx?type=Fab_Admin_Expanse");
             }
+
+            SetCurrentDate();
+
+        }
+
+        protected void SetCurrentDate()
+        {
+
+            DateTime todayDate = GetCurrentDate();
+            SelectDate.Text = todayDate.ToString("yyyy-MM-dd");
+        }
+
+
+        protected DateTime GetCurrentDate()
+        {
+            DateTime serverTime = DateTime.Now;
+            DateTime localTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(serverTime, TimeZoneInfo.Local.Id, "India Standard Time");
+            return localTime.Date;
         }
 
         protected void btnSubmitAExpanse_Click(object sender, EventArgs e)

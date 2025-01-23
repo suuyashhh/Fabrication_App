@@ -11,7 +11,7 @@ namespace WebApplication1
 {
 
 
-    public partial class Fab_Admin_Master
+    public partial class Fab_Admin_FillAttendance
     {
 
         /// <summary>
@@ -24,13 +24,13 @@ namespace WebApplication1
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// MstDate control.
+        /// AFdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox MstDate;
+        protected global::System.Web.UI.WebControls.TextBox AFdate;
 
         /// <summary>
         /// ddlHelpername control.
@@ -42,39 +42,21 @@ namespace WebApplication1
         protected global::System.Web.UI.WebControls.DropDownList ddlHelpername;
 
         /// <summary>
-        /// AdvanceMoney control.
+        /// ddlworktype control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AdvanceMoney;
+        protected global::System.Web.UI.WebControls.DropDownList ddlworktype;
 
         /// <summary>
-        /// btnSubmitAdvance control.
+        /// btnSubmitAFAtt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmitAdvance;
-
-        /// <summary>
-        /// gridAdvance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridAdvance;
-
-        /// <summary>
-        /// gridHelper control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridHelper;
+        protected global::System.Web.UI.WebControls.Button btnSubmitAFAtt;
     }
 }

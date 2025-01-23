@@ -93,7 +93,7 @@ namespace WebApplication1
                 {
                     cmd.Parameters.AddWithValue("@Advance", AdvanceMoney.Text.Trim()); 
                     cmd.Parameters.AddWithValue("@id", ddlHelpername.SelectedValue); 
-                    cmd.Parameters.AddWithValue("@dt", DateTime.Now); 
+                    cmd.Parameters.AddWithValue("@dt", MstDate.Text); 
 
                     con.Open();
                     cmd.ExecuteNonQuery();

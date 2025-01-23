@@ -1,20 +1,23 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Admin_Transport.aspx.cs" Inherits="WebApplication1.Fab_Admin_Transport" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fab_Admin_FillAttendance.aspx.cs" Inherits="WebApplication1.Fab_Admin_FillAttendance" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transport Management</title>
+    <title>Fill Helper Attendance</title>
 
     <!-- Vendor CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600&display=swap" rel="stylesheet" />
 
+
+    <!-- Sweet Alert -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css" rel="stylesheet" type="text/css" />
 
+    <!-- Custom CSS -->
     <style>
         body, html {
             margin: 0;
@@ -22,6 +25,7 @@
             font-family: "Saira", sans-serif;
         }
 
+        /* Header styles */
         .header {
             display: flex;
             justify-content: flex-start;
@@ -133,38 +137,39 @@
 <body>
     <form id="form1" runat="server">
         <div class="container-fluid">
-
+            <!-- Page Header with Image and Feeds Title -->
             <div class="header">
-                <img src="FabImage/Truck.png" alt="Bill Icon" />
-                <h1>Transport Management</h1>
+                <img src="FabImage/Attendense.png" alt="Bill Icon" />
+                <h1>Fill Helper Attendance</h1>
             </div>
 
+            <!-- Feeds Form Section -->
             <div class="content">
 
                 <div class="row justify-content-center align-items-center " style="min-height: 70vh !important;">
                     <div class="col-md-8 col-lg-6">
                         <div class="form-group">
-                            <label for="TrnDate" class="form-label">Select Date*</label>
-                            <asp:TextBox ID="TrnDate" CssClass="form-control form-control-lg" runat="server" TextMode="Date"></asp:TextBox>
-                        </div>
-                        <div class="form-group">
-                            <label for="TrnPlace" class="form-label">Transport Place*</label>
-                            <asp:TextBox ID="TrnPlace" CssClass="form-control form-control-lg" runat="server"></asp:TextBox>
-
+                            <label for="AFdate" class="form-label">Select Date*</label>
+                            <asp:TextBox ID="AFdate" CssClass="form-control form-control-lg" runat="server" TextMode="Date"></asp:TextBox>
                         </div>
 
                         <div class="form-group">
-                            <label for="TrnPrice" class="form-label">Price*</label>
-                            <asp:TextBox ID="TrnPrice" CssClass="form-control form-control-lg" runat="server" TextMode="Number"></asp:TextBox>
+                            <label for="ddlHelpername" class="form-label">Helper Name*</label>
+                           <asp:DropDownList ID="ddlHelpername" runat="server" CssClass="form-control form-control-lg" DataTextField="User_name" DataValueField="User_name"></asp:DropDownList>
+                            
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ddlworktype" class="form-label">Work Type*</label>
+                            <asp:DropDownList ID="ddlworktype" runat="server" CssClass="form-control form-control-lg" onchange="toggleCustomInput(this)">
+                                <asp:ListItem Text="FULL DAY" Value="FULL DAY"></asp:ListItem>
+                                <asp:ListItem Text="HALF DAY" Value="HALF DAY"></asp:ListItem>
+                                <asp:ListItem Text="OFF DAY" Value="OFF DAY"></asp:ListItem>
+                            </asp:DropDownList>
+                            
                         </div>
                         <div class="form-group">
-                            <asp:Button ID="btnSubmitTransport"
-                                OnClientClick="return valid();"
-                                OnClick="btnSubmitTransport_Click"
-                                Text="Submit"
-                                CssClass="btn btn-submit btn-block"
-                                runat="server" />
-
+                            <asp:Button ID="btnSubmitAFAtt" onclick="btnSubmitAFAtt_Click"  OnClientClick="return valid()" Text="Submit" CssClass="btn btn-submit btn-block" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -184,19 +189,17 @@
     </script>
 
     <script>
-        function valid() {        
-            var date = document.getElementById('<%= TrnDate.ClientID %>').value;
-            var tp = document.getElementById('<%= TrnPlace.ClientID %>').value;
-            var price = document.getElementById('<%= TrnPrice.ClientID %>').value;
+        function valid() {
+            var date = document.getElementById('<%= this.AFdate.ClientID %>').value;
+            var price = document.getElementById('<%= this.ddlHelpername.ClientID %>').value;
 
-            if (date === "" || tp === "" || price === "") {
+            if (date == "" || price == "") {
                 swal("Please fill all details to proceed..!", "", "error");
                 return false;
             }
 
             return true;
         }
-
     </script>
 
 
@@ -227,6 +230,18 @@
             img.style.transform = 'translateX(100%)';
             h1.style.transform = 'translateX(100%)';
         });
+    </script>
+
+    <script>
+        function toggleCustomInput(dropdown) {
+            var customInput = document.getElementById("customAnimalType");
+            if (dropdown.value === "Other") {
+                customInput.style.display = "block";
+                customInput.focus();
+            } else {
+                customInput.style.display = "none";
+            }
+        }
     </script>
 
 </body>

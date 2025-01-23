@@ -149,6 +149,10 @@
                 <div class="col-md-6 col-sm-12 mb-4">
                     <h2>Advance Money</h2>
                     <div class="form-group">
+                        <label for="MstDate" class="form-label">Select Date*</label>
+                        <asp:TextBox ID="MstDate" CssClass="form-control form-control-lg" runat="server" TextMode="Date"></asp:TextBox>
+                    </div>
+                    <div class="form-group">
                         <label class="form-label">Helper Name*</label>
                         <asp:DropDownList ID="ddlHelpername" runat="server" CssClass="form-control form-control-lg" DataTextField="User_name" DataValueField="User_name"></asp:DropDownList>
                     </div>
@@ -169,7 +173,7 @@
                                     <ItemTemplate>
                                         <asp:Label runat="server" ID="lblDate" Text='<%# Convert.ToDateTime(Eval("ExpenseDate")).ToString("dd-MMM-yyyy") %>'></asp:Label>
                                     </ItemTemplate>
-                                  
+
                                 </asp:TemplateField>
 
                                 <asp:TemplateField HeaderText="Name:">
@@ -259,9 +263,10 @@
         function validF() {
             var name = document.getElementById('<%= this.AdvanceMoney.ClientID %>').value;
             var money = document.getElementById('<%= this.ddlHelpername.ClientID %>').value;
+            var date = document.getElementById('<%= this.MstDate.ClientID %>').value;
 
 
-            if (name == "" || money == "") {
+            if (name == "" || money == "" || date == "") {
                 swal("Please fill all details to proceed..!", "", "error");
                 return false;
             }
