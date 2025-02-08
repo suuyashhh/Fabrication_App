@@ -617,6 +617,8 @@
     <Content Include="Index.html" />
     <Content Include="indexx2.html" />
     <Content Include="Transport.aspx" />
+    <Content Include="V0.html" />
+    <Content Include="V0Cart.html" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>

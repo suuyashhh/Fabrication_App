@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Sprig Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .cart-title {
+            font-size: 32px;
+            color: #006B5E;
+            font-weight: 500;
+        }
+
+        .continue-shopping {
+            color: #006B5E;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .cart-items {
+            margin-bottom: 30px;
+        }
+
+        .cart-item {
+            margin-bottom: 20px;
+        }
+
+        .item-image {
+            width: 100%;
+            max-width: 120px;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .item-details h3 {
+            font-size: 18px;
+            color: #006B5E;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .item-specs {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 1px solid #006B5E;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            max-width: 300px;
+        }
+
+        .quantity-btn {
+            background: none;
+            border: none;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #006B5E;
+        }
+
+        .quantity-input {
+            flex: 1;
+            text-align: center;
+            border: none;
+            font-size: 16px;
+            color: #006B5E;
+            width: 50px;
+            padding: 10px;
+        }
+
+        .price {
+            font-size: 16px;
+            color: #006B5E;
+            margin-bottom: 15px;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 20px;
+            padding: 5px;
+            display: block;
+            margin-left: auto;
+        }
+
+        .cart-summary {
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .estimated-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+            .estimated-total .label {
+                font-weight: 500;
+            }
+
+        .tax-note {
+            color: #666;
+            font-size: 12px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: #006B5E;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .cart-item {
+                display: grid;
+                grid-template-columns: auto 1fr auto auto;
+                gap: 20px;
+                align-items: start;
+            }
+
+            .item-image {
+                margin-bottom: 0;
+            }
+
+            .quantity-controls {
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
+
+            .price {
+                margin-bottom: 0;
+                padding-top: 10px;
+            }
+
+            .delete-btn {
+                margin-left: 0;
+                padding-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cart-header">
+            <h1 class="cart-title">Your cart</h1>
+            <a href="index.html" class="continue-shopping">Continue shopping</a>
+        </div>
+
+        <div class="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
+
+        <div class="cart-summary">
+            <div class="estimated-total">
+                <span class="label">Estimated total</span>
+                <span id="cart-total-amount">₹0.00</span>
+            </div>
+            <p class="tax-note">Tax included and shipping and discounts calculated at checkout</p>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.querySelector('.cart-items');
+        const cartTotalAmount = document.getElementById('cart-total-amount');
+
+        function updateCartDisplay() {
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                        <div class="empty-cart">
+                            <p>Your cart is empty</p>
+                        </div>
+                    `;
+                cartTotalAmount.textContent = '₹0.00';
+                return;
+            }
+
+            cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.title}" class="item-image">
+                        <div class="item-details">
+                            <h3>${item.title}</h3>
+                            <div class="item-specs">
+                                <div>Material: ${item.material || 'Full Cover'}</div>
+                                <div>Color: ${item.color || 'Black'}</div>
+                            </div>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">−</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantityInput(${index}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                        <div class="price">₹${(parseFloat(item.price.replace('₹', '')) * item.quantity).toFixed(2)}</div>
+                        <button class="delete-btn" onclick="removeItem(${index})">🗑️</button>
+                    </div>
+                `).join('');
+
+            updateTotal();
+        }
+
+        function updateQuantity(index, change) {
+            const newQuantity = (cart[index].quantity || 1) + change;
+            if (newQuantity > 0) {
+                cart[index].quantity = newQuantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+
+        function updateQuantityInput(index, value) {
+            const newQuantity = parseInt(value);
+            if (newQuantity > 0) {
+                cart[index].quantity = newQuantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        function updateTotal() {
+            const total = cart.reduce((sum, item) => {
+                const price = parseFloat(item.price.replace('₹', ''));
+                return sum + (price * item.quantity);
+            }, 0);
+            cartTotalAmount.textContent = `₹${total.toFixed(2)}`;
+        }
+
+        // Initial display
+        updateCartDisplay();
+    </script>
+</body>
+</html>
+
