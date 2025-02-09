@@ -30,7 +30,7 @@ namespace WebApplication1
                 lblGetTotalGoodExpance.Visible = false;
                 lblGetTotalSalarySlip.Visible = false;
                 lblgetTransport.Visible = false;
-                GridViewAttendance.Visible=false;
+                GridViewAttendance.Visible = false;
             }
             if (!IsPostBack)
             {
@@ -315,7 +315,7 @@ namespace WebApplication1
                 return ds;
             }
         }
-        
+
         protected DataSet gvGridHelperAttendance(string recordType, DateTime fromDate, DateTime toDate)
         {
             string query = @"SELECT CAST(date as DATE) as DATE,H_id, User_name, User_day FROM Fab_Helper_Att 
@@ -348,11 +348,13 @@ namespace WebApplication1
             string Pro_id = gridBill.DataKeys[e.RowIndex].Value.ToString();
             string Pro_name = ((TextBox)row.FindControl("txtAT")).Text;
             string Pro_price = ((TextBox)row.FindControl("txtprice")).Text;
+            string Pro_Date = ((TextBox)row.FindControl("txtBilldt")).Text;
 
-            SqlCommand cmd = new SqlCommand("UPDATE Fab_Profit SET Pro_name = @Pro_name, Pro_price = @Pro_price WHERE Pro_id = @Pro_id", con);
+            SqlCommand cmd = new SqlCommand("UPDATE Fab_Profit SET Pro_name = @Pro_name, Pro_price = @Pro_price, date = @date WHERE Pro_id = @Pro_id", con);
             cmd.Parameters.AddWithValue("@Pro_name", Pro_name);
             cmd.Parameters.AddWithValue("@Pro_price", Pro_price);
             cmd.Parameters.AddWithValue("@Pro_id", Pro_id);
+            cmd.Parameters.AddWithValue("@date", Pro_Date);
 
             con.Open();
             cmd.ExecuteNonQuery();
@@ -394,11 +396,13 @@ namespace WebApplication1
             string Exp_id = GridGoodExpance.DataKeys[e.RowIndex].Value.ToString();
             string Exp_name = ((TextBox)row.FindControl("txtFeedN")).Text;
             string Exp_price = ((TextBox)row.FindControl("txtOFprice")).Text;
+            string Exp_date = ((TextBox)row.FindControl("txtGooddt")).Text;
 
-            SqlCommand cmd = new SqlCommand("UPDATE Fab_Expanse SET Exp_name = @Exp_name, Exp_price = @Exp_price WHERE Exp_id = @Exp_id", con);
+            SqlCommand cmd = new SqlCommand("UPDATE Fab_Expanse SET Exp_name = @Exp_name, Exp_price = @Exp_price, date=@date WHERE Exp_id = @Exp_id", con);
             cmd.Parameters.AddWithValue("@Exp_name", Exp_name);
             cmd.Parameters.AddWithValue("@Exp_price", Exp_price);
             cmd.Parameters.AddWithValue("@Exp_id", Exp_id);
+            cmd.Parameters.AddWithValue("@date", Exp_date);
 
             con.Open();
             cmd.ExecuteNonQuery();
@@ -434,11 +438,13 @@ namespace WebApplication1
             string Exp_id = GridTransport.DataKeys[e.RowIndex].Value.ToString();
             string Exp_name = ((TextBox)row.FindControl("txtTranNAme")).Text;
             string Exp_price = ((TextBox)row.FindControl("txtTranPrice")).Text;
+            string Trn_date = ((TextBox)row.FindControl("txttransdt")).Text;
 
-            SqlCommand cmd = new SqlCommand("UPDATE Fab_Expanse SET Exp_name = @Exp_name, Exp_price = @Exp_price WHERE Exp_id = @Exp_id", con);
+            SqlCommand cmd = new SqlCommand("UPDATE Fab_Expanse SET Exp_name = @Exp_name, Exp_price = @Exp_price, date =@date WHERE Exp_id = @Exp_id", con);
             cmd.Parameters.AddWithValue("@Exp_name", Exp_name);
             cmd.Parameters.AddWithValue("@Exp_price", Exp_price);
             cmd.Parameters.AddWithValue("@Exp_id", Exp_id);
+            cmd.Parameters.AddWithValue("@date", Trn_date);
 
             con.Open();
             cmd.ExecuteNonQuery();
@@ -483,7 +489,7 @@ namespace WebApplication1
             GridTransport.DataSource = gvGridTransport(selectedValue, fromDate, toDate);
             GridTransport.DataBind();
         }
-        
+
         private void RebindHelperAttendance()
         {
             string selectedValue = ddlRecordType.SelectedValue;
@@ -510,10 +516,12 @@ namespace WebApplication1
             GridViewRow row = GridViewAttendance.Rows[e.RowIndex];
             string H_id = GridViewAttendance.DataKeys[e.RowIndex].Value.ToString();
             string User_day = ((TextBox)row.FindControl("txtahelperDay")).Text;
+            string User_date = ((TextBox)row.FindControl("txtAttendt")).Text;
 
-            SqlCommand cmd = new SqlCommand("UPDATE Fab_Helper_Att SET User_day = @User_day WHERE H_id = @H_id", con);
+            SqlCommand cmd = new SqlCommand("UPDATE Fab_Helper_Att SET User_day = @User_day, date = @date WHERE H_id = @H_id", con);
             cmd.Parameters.AddWithValue("@User_day", User_day);
             cmd.Parameters.AddWithValue("@H_id", H_id);
+            cmd.Parameters.AddWithValue("@date", User_date);
 
             con.Open();
             cmd.ExecuteNonQuery();

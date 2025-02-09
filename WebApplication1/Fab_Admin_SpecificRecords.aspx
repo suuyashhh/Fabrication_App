@@ -204,7 +204,15 @@
                 <asp:Label ID="lblGetTotalBill" runat="server" Text="Total Bill: 0" Visible="true" CssClass="total-price" />
                 <asp:GridView runat="server" ID="gridBill" DataKeyNames="Pro_id" AutoGenerateColumns="false" OnRowEditing="gridBill_RowEditing" OnRowCancelingEdit="gridBill_RowCancelingEdit" OnRowUpdating="gridBill_RowUpdating" OnRowDeleting="gridBill_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
                     <Columns>
-                        <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>
+                        <%--  <asp:BoundField DataField="date" Id="Billdt" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>--%>
+                        <asp:TemplateField HeaderText="Date">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblBilldt" Text='<%# Eval("date", "{0:dd-MMM-yyyy}") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox runat="server" ID="txtBilldt" Text='<%# Eval("date", "{0:dd-MM-yyyy}") %>' TextMode="Date"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Name:">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lblAT" Text='<%# Eval("Pro_name") %>'></asp:Label>
@@ -234,7 +242,15 @@
                 <asp:Label ID="lblGetTotalGoodExpance" runat="server" Text="Total Goods Expance: 0" Visible="true" CssClass="total-price" />
                 <asp:GridView runat="server" ID="GridGoodExpance" DataKeyNames="Exp_id" AutoGenerateColumns="false" OnRowEditing="GridGoodExpance_RowEditing" OnRowCancelingEdit="GridGoodExpance_RowCancelingEdit" OnRowUpdating="GridGoodExpance_RowUpdating" OnRowDeleting="GridGoodExpance_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
                     <Columns>
-                        <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>
+                        <%--  <asp:BoundField DataField="date" Id="Gooddt" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>--%>
+                        <asp:TemplateField HeaderText="Date">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblGooddt" Text='<%# Eval("date", "{0:dd-MMM-yyyy}") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox runat="server" ID="txtGooddt" Text='<%# Eval("date", "{0:dd-MM-yyyy}") %>' TextMode="Date"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Goods Name:">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lblFeedN" Text='<%# Eval("Exp_name") %>'></asp:Label>
@@ -266,7 +282,15 @@
                 <asp:Label ID="lblgetTransport" runat="server" Text="Total Transport List: 0" Visible="true" CssClass="total-price" />
                 <asp:GridView runat="server" ID="GridTransport" DataKeyNames="Exp_id" AutoGenerateColumns="false" OnRowEditing="GridTransport_RowEditing" OnRowCancelingEdit="GridTransport_RowCancelingEdit" OnRowUpdating="GridTransport_RowUpdating" OnRowDeleting="GridTransport_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
                     <Columns>
-                        <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>
+                        <%--  <asp:BoundField DataField="date" Id="trnsdate" HeaderText="Date" SortExpression="ColumnName" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>--%>
+                        <asp:TemplateField HeaderText="Date">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lbltransdt" Text='<%# Eval("date", "{0:dd-MMM-yyyy}") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox runat="server" ID="txttransdt" Text='<%# Eval("date", "{0:dd-MM-yyyy}") %>' TextMode="Date"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Place Name:">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lblTranNAme" Text='<%# Eval("Exp_name") %>'></asp:Label>
@@ -295,14 +319,22 @@
         <!-- GridView to display Helper Attendance the results -->
         <div class="table-responsive">
             <div class="container-fluid" style="margin: 70px 0px;">
-                
+
                 <asp:GridView runat="server" ID="GridViewAttendance" DataKeyNames="H_id" AutoGenerateColumns="false" OnRowEditing="GridViewAttendance_RowEditing" OnRowCancelingEdit="GridViewAttendance_RowCancelingEdit" OnRowUpdating="GridViewAttendance_RowUpdating" OnRowDeleting="GridViewAttendance_RowDeleting" CssClass="table table-striped table-bordered " Style="text-align: center; margin-top: 90px">
                     <Columns>
-                        <asp:BoundField DataField="date" HeaderText="Date" SortExpression="ColumnName" ReadOnly="true" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>
+                        <%-- <asp:BoundField DataField="date" Id="USdate" HeaderText="Date" SortExpression="ColumnName" ReadOnly="true" DataFormatString="{0:dd-MMM-yyyy}"></asp:BoundField>--%>
+                        <asp:TemplateField HeaderText="Date">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lblAttendt" Text='<%# Eval("date", "{0:dd-MMM-yyyy}") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox runat="server" ID="txtAttendt" Text='<%# Eval("date", "{0:dd-MM-yyyy}") %>' TextMode="Date"></asp:TextBox>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Helper Name:">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lblhelperName" Text='<%# Eval("User_name") %>'></asp:Label>
-                            </ItemTemplate>                           
+                            </ItemTemplate>
                         </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Work day:">
